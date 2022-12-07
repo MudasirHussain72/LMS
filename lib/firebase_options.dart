@@ -44,40 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCZiavE6m_qsofAXzoTGFMZ6zJANIlDFGw',
-    appId: '1:168817670383:web:6d74813140d25c743c431a',
-    messagingSenderId: '168817670383',
-    projectId: 'flutter-lms-1f569',
-    authDomain: 'flutter-lms-1f569.firebaseapp.com',
-    storageBucket: 'flutter-lms-1f569.appspot.com',
-    measurementId: 'G-YZ48LWHXJY',
+    apiKey: 'AIzaSyDo28gzrg_AmzRhgXSPqhQnOpxPY_nkas8',
+    appId: '1:744906428261:web:d9bb5c6aa08c8e0451db8c',
+    messagingSenderId: '744906428261',
+    projectId: 'lms-d1c0f',
+    authDomain: 'lms-d1c0f.firebaseapp.com',
+    storageBucket: 'lms-d1c0f.appspot.com',
+    measurementId: 'G-1F0L08RR4Y',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBKWEnCI20hjppN3LBO1DrQE31Os4gepMM',
-    appId: '1:168817670383:android:a67864799b18477e3c431a',
-    messagingSenderId: '168817670383',
-    projectId: 'flutter-lms-1f569',
-    storageBucket: 'flutter-lms-1f569.appspot.com',
+    apiKey: 'AIzaSyBNXy1n3V5HmPu1R2vhccMugulhgdkiVkY',
+    appId: '1:744906428261:android:c044fb6f0212b23651db8c',
+    messagingSenderId: '744906428261',
+    projectId: 'lms-d1c0f',
+    storageBucket: 'lms-d1c0f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBZFWwiWvSoDSziCCvSiIwPxuLkipo0C3A',
-    appId: '1:168817670383:ios:d3980a87961dcdfe3c431a',
-    messagingSenderId: '168817670383',
-    projectId: 'flutter-lms-1f569',
-    storageBucket: 'flutter-lms-1f569.appspot.com',
-    iosClientId: '168817670383-f1qjbi4cq3dt21k3l6e0fnaljh0h3o4u.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDKsZJcrm-3FP3zjT8ua5R6Ydj2UM6YaZ4',
+    appId: '1:744906428261:ios:e02d3e8943050aaf51db8c',
+    messagingSenderId: '744906428261',
+    projectId: 'lms-d1c0f',
+    storageBucket: 'lms-d1c0f.appspot.com',
+    iosClientId: '744906428261-l5vlqftrh8p1343vgtb7tk9lad2b6ee3.apps.googleusercontent.com',
     iosBundleId: 'com.example.project',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBZFWwiWvSoDSziCCvSiIwPxuLkipo0C3A',
-    appId: '1:168817670383:ios:d3980a87961dcdfe3c431a',
-    messagingSenderId: '168817670383',
-    projectId: 'flutter-lms-1f569',
-    storageBucket: 'flutter-lms-1f569.appspot.com',
-    iosClientId: '168817670383-f1qjbi4cq3dt21k3l6e0fnaljh0h3o4u.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDKsZJcrm-3FP3zjT8ua5R6Ydj2UM6YaZ4',
+    appId: '1:744906428261:ios:e02d3e8943050aaf51db8c',
+    messagingSenderId: '744906428261',
+    projectId: 'lms-d1c0f',
+    storageBucket: 'lms-d1c0f.appspot.com',
+    iosClientId: '744906428261-l5vlqftrh8p1343vgtb7tk9lad2b6ee3.apps.googleusercontent.com',
     iosBundleId: 'com.example.project',
   );
 }

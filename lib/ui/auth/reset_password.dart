@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:project/ui/auth/login.dart';
 import 'package:project/widgets/auth_widgets/auth_ui_picture_parts.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';

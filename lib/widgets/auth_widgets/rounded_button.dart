@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -19,16 +21,16 @@ class RoundedButton extends StatelessWidget {
       child: Container(
           height: 50,
           width: double.infinity,
-          child: Center(
-              child: Text(
-            title,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          )),
           decoration: BoxDecoration(
             // color: Color(0xff6D88E7),
             color: color,
             borderRadius: BorderRadius.circular(9),
-          )),
+          ),
+          child: Center(
+              child: Text(
+            title,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          ))),
     );
   }
 }

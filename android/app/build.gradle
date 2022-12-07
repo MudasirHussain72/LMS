@@ -26,6 +26,9 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    defaultConfig {
+        multiDexEnabled true
+    }
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -68,6 +71,7 @@ flutter {
 }
 
 dependencies {
+    implementation 'com.android.support:multidex:2.0.1' //enter the latest multidex version
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:multidex:1.0.3'
     // Import the BoM for the Firebase platform

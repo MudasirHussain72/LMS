@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:project/widgets/auth_widgets/auth_ui_picture_parts.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -16,7 +19,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   bool loading = false;
-  bool userType = true;
+  bool isTeacher = true;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore store = FirebaseFirestore.instance;
   var fireStore = FirebaseFirestore.instance.collection("users");
@@ -29,6 +32,8 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   var termsCondi;
   Future SignUp() async {
+    final prefs = await SharedPreferences.getInstance();
+
     final isValid = _formKey.currentState!.validate();
     if (!isValid) return;
     showDialog(
@@ -39,10 +44,21 @@ class _SignUpState extends State<SignUp> {
       // create user
       await _auth
           .createUserWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim(),
-          )
-          .then((value) {store..collection('user').doc(value.user!.uid).set(data);});
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      )
+          .then((value) {
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(_auth.currentUser!.uid)
+            .set({
+          "fullName": nameController.text.trim(),
+          "email": emailController.text.trim(),
+          "phone": phoneController.text.trim(),
+          "gender": gederController.text.trim(),
+          "isTeacher": isTeacher,
+        });
+      });
     } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
         print(e);
@@ -55,16 +71,6 @@ class _SignUpState extends State<SignUp> {
             );
           });
     }
-
-    await fireStore.doc(_auth.currentUser!.uid).set({
-      'Name': nameController.text.trim(),
-      'email': emailController.text.trim(),
-      'phone': int.parse(
-        phoneController.text.trim(),
-      ),
-      'gender': gederController.text.trim(),
-      "userType": userType
-    });
     Navigator.of(context).pop();
   }
 
@@ -150,10 +156,16 @@ class _SignUpState extends State<SignUp> {
                               ),
                               Switch(
                                   activeColor: const Color(0xff6D88E7),
-                                  value: userType,
+                                  value: isTeacher,
                                   onChanged: (bool value) {
                                     setState(() {
-                                      userType = value;
+                                      // userType = value;
+                                      if (isTeacher == true) {
+                                        isTeacher = false;
+                                      } else if (isTeacher == false) {
+                                        isTeacher = true;
+                                      }
+                                      print("................. $isTeacher");
                                     });
                                   }),
                               const Text(

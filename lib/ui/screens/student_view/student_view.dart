@@ -10,7 +10,7 @@ class StudentView extends StatefulWidget {
 class _StudentViewState extends State<StudentView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(child: Text("student view")),
     );
   }

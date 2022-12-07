@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:project/ui/view/student_view/student_view.dart';
+import 'package:project/ui/screens/student_view/student_view.dart';
 import 'package:project/utils/utils.dart';
 import 'package:project/widgets/auth_widgets/auth_ui_picture_parts.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
