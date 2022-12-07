@@ -1,19 +1,20 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:project/ui/auth/login.dart';
+import 'package:project/widgets/auth_widgets/auth_ui_picture_parts.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
-import 'package:project/widgets/auth_widgets/auth_ui_picture_parts.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class ResetPassword extends StatefulWidget {
+  const ResetPassword({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ResetPassword> createState() => _ResetPasswordState();
 }
 
-TextEditingController userNameController = TextEditingController();
+class _ResetPasswordState extends State<ResetPassword> {
+  TextEditingController resetPasswordController = TextEditingController();
 
-class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,20 +26,22 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.symmetric(vertical: 90.0, horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const Text(
-                "Hey,\nLogin Now",
+                "Update\nPassword",
                 style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
               ),
+              const SizedBox(
+                height: 20,
+              ),
               RichText(
-                // textDirection: TextDirection.tr,
                 text: TextSpan(
-                  text: 'if you are new / ',
+                  text:
+                      "Dont't worry! it happens. Please enter the address associated with your account.",
                   style: const TextStyle(fontSize: 13, color: Colors.black),
                   children: [
                     TextSpan(
-                        text: 'Create New',
                         style: const TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -50,33 +53,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
               ),
-              MyTextField(
-                  controller: userNameController,
-                  hintText: "Username",
-                  color: const Color(0xff6D88E7)),
-              MyTextField(
-                  controller: userNameController,
-                  hintText: "Password",
-                  color: const Color(0xff6D88E7)),
-              RichText(
-                text: const TextSpan(
-                  text: 'Forgot password ? / ',
-                  style: TextStyle(fontSize: 13, color: Colors.black),
-                  children: [
-                    TextSpan(
-                      text: 'Reset Now',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
+              const SizedBox(
+                height: 20,
               ),
-              const SizedBox(height: 20),
-              RoundedButton(
-                  ontap: () {}, title: "Login", color: const Color(0xff6D88E7))
+              MyTextField(
+                  controller: resetPasswordController,
+                  hintText: "Email ID",
+                  color: const Color(0xff6D88E7)),
             ],
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24),
+            child: RoundedButton(
+                ontap: () {}, title: "Reset", color: const Color(0xff6D88E7)),
           ),
         )
       ]),

@@ -18,6 +18,13 @@ class MyTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "plz enter...";
+          } else {
+            return null;
+          }
+        },
         controller: controller,
         cursorColor: color,
         style: const TextStyle(fontSize: 14),
