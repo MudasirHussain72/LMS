@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,8 +32,6 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   var termsCondi;
   Future SignUp() async {
-    final prefs = await SharedPreferences.getInstance();
-
     final isValid = _formKey.currentState!.validate();
     if (!isValid) return;
     showDialog(
@@ -54,7 +52,7 @@ class _SignUpState extends State<SignUp> {
             .set({
           "fullName": nameController.text.trim(),
           "email": emailController.text.trim(),
-          "phone": phoneController.text.trim(),
+          "phone": int.parse(phoneController.text.trim()),
           "gender": gederController.text.trim(),
           "isTeacher": isTeacher,
         });
@@ -70,6 +68,18 @@ class _SignUpState extends State<SignUp> {
               child: Text(e.message.toString()),
             );
           });
+    }
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('fullName', nameController.text.trim().toString());
+    await prefs.setString('email', emailController.text.trim().toString());
+    await prefs.setInt('phone', int.parse(phoneController.text.trim()));
+    await prefs.setString('gender', gederController.text.trim().toString());
+    await prefs.setBool('isTeacher', isTeacher);
+
+    if (isTeacher == false) {
+      Navigator.pushReplacementNamed(context, "/StudentView");
+    } else if (isTeacher == true) {
+      Navigator.pushReplacementNamed(context, "/TeacherView");
     }
     Navigator.of(context).pop();
   }
@@ -165,7 +175,9 @@ class _SignUpState extends State<SignUp> {
                                       } else if (isTeacher == false) {
                                         isTeacher = true;
                                       }
-                                      print("................. $isTeacher");
+                                      if (kDebugMode) {
+                                        print("................. $isTeacher");
+                                      }
                                     });
                                   }),
                               const Text(

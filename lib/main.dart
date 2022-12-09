@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project/ui/auth/add_profile_details_screen.dart';
 import 'package:project/ui/auth/login.dart';
-import 'package:project/ui/auth/otp_screen.dart';
 import 'package:project/ui/auth/reset_password.dart';
 import 'package:project/ui/auth/sign_up.dart';
 import 'package:project/ui/screens/home_screen.dart';
 import 'package:project/ui/screens/splash_screen.dart';
 import 'package:project/ui/screens/student_view/student_view.dart';
+import 'package:project/ui/screens/teacher_view/teacher_view.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -15,7 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -40,6 +40,7 @@ class _MyAppState extends State<MyApp> {
         "/AddDetails": (context) => const AddUserDetailsScreen(),
         "/HomeScreen": (context) => const HomeScreen(),
         "/StudentView": (context) => const StudentView(),
+        "/TeacherView": (context) => const TeacherView(),
       },
     );
   }
