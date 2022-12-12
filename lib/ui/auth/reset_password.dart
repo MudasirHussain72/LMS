@@ -1,3 +1,5 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:project/widgets/auth_widgets/auth_ui_picture_parts.dart';
@@ -25,7 +27,6 @@ class _ResetPasswordState extends State<ResetPassword> {
           padding: const EdgeInsets.symmetric(vertical: 90.0, horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               const Text(
                 "Update\nPassword",
@@ -67,7 +68,25 @@ class _ResetPasswordState extends State<ResetPassword> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24),
             child: RoundedButton(
-                ontap: () {}, title: "Reset", color: const Color(0xff6D88E7)),
+                ontap: () {
+                  try {
+                    FirebaseAuth.instance
+                        .sendPasswordResetEmail(
+                            email: resetPasswordController.text.trim())
+                        .then((value) => ScaffoldMessenger.of(context)
+                            .showSnackBar(
+                                const SnackBar(content: Text("successfully sent"))));
+                  } on FirebaseException catch (e) {
+                    return AwesomeSnackbarContent(
+                      title: "exception",
+                      message: e.message.toString(),
+                      contentType: ContentType("message"),
+                    );
+                    //  SnackBar(content: Text(e.message.toString()));
+                  }
+                },
+                title: "Reset",
+                color: const Color(0xff6D88E7)),
           ),
         )
       ]),

@@ -10,10 +10,21 @@ class StudentView extends StatefulWidget {
 }
 
 class _StudentViewState extends State<StudentView> {
+  void setRole() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isTeacher', false);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setRole();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
+      appBar: AppBar(automaticallyImplyLeading: false, actions: [
         InkWell(
             onTap: () async {
               signOut();

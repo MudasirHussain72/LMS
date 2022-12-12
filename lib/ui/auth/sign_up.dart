@@ -31,7 +31,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController reTypePassController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var termsCondi;
-  Future SignUp() async {
+  Future SignUp(bool isTeacher) async {
     final isValid = _formKey.currentState!.validate();
     if (!isValid) return;
     showDialog(
@@ -56,8 +56,12 @@ class _SignUpState extends State<SignUp> {
           "gender": gederController.text.trim(),
           "isTeacher": isTeacher,
         });
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("account created successfully")));
       });
     } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message.toString())));
       if (kDebugMode) {
         print(e);
       }
@@ -75,13 +79,7 @@ class _SignUpState extends State<SignUp> {
     await prefs.setInt('phone', int.parse(phoneController.text.trim()));
     await prefs.setString('gender', gederController.text.trim().toString());
     await prefs.setBool('isTeacher', isTeacher);
-
-    if (isTeacher == false) {
-      Navigator.pushReplacementNamed(context, "/StudentView");
-    } else if (isTeacher == true) {
-      Navigator.pushReplacementNamed(context, "/TeacherView");
-    }
-    Navigator.of(context).pop();
+    await Navigator.pushNamed(context, "/LoginScreen");
   }
 
   @override
@@ -205,7 +203,7 @@ class _SignUpState extends State<SignUp> {
                           RoundedButton(
                               ontap: () {
                                 if (_formKey.currentState!.validate()) {
-                                  SignUp();
+                                  SignUp(isTeacher);
                                 }
                               },
                               title: "Sign Up",
