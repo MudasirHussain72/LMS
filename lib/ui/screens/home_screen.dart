@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       // bottomNavigationBar
-      bottomNavigationBar: const MyBottomNavigationBar(),
+      // bottomNavigationBar: const MyBottomNavigationBar(),
       // body area
       body: Stack(
         children: [
