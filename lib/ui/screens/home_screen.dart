@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/widgets/bottomNavBar.dart';
 import 'package:project/widgets/course_material.dart';
 import 'package:project/widgets/subject_type.dart';
 import 'package:project/widgets/user_profile_picture.dart';

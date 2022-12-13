@@ -123,7 +123,8 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Navigator.pushNamed(context, "/");
+                                        Navigator.pushReplacementNamed(
+                                            context, "/LoginScreen");
                                       }),
                               ],
                             ),
