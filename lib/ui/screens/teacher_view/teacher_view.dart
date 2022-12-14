@@ -22,8 +22,8 @@ class _TeacherViewState extends State<TeacherView> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    ClearYourDoubtsScreen(),
     HomeScreen(),
+    ClearYourDoubtsScreen(),
     AddUserDetailsScreen(),
   ];
   @override
@@ -35,23 +35,23 @@ class _TeacherViewState extends State<TeacherView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: const Text("Teacher view"),
-          actions: [
-            InkWell(
-                onTap: () async {
-                  signOut();
-                  SharedPreferences preferences =
-                      await SharedPreferences.getInstance();
-                  await preferences.clear();
-                  // ignore: use_build_context_synchronously
-                  await Navigator.pushReplacementNamed(context, "/LoginScreen");
-                },
-                child: const Icon(
-                  Icons.logout_outlined,
-                )),
-          ]),
+      // appBar: AppBar(
+      //     automaticallyImplyLeading: false,
+      //     title: const Text("Teacher view"),
+      //     actions: [
+      //       InkWell(
+      //           onTap: () async {
+      //             signOut();
+      //             SharedPreferences preferences =
+      //                 await SharedPreferences.getInstance();
+      //             await preferences.clear();
+      //             // ignore: use_build_context_synchronously
+      //             await Navigator.pushReplacementNamed(context, "/LoginScreen");
+      //           },
+      //           child: const Icon(
+      //             Icons.logout_outlined,
+      //           )),
+      //     ]),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
@@ -68,8 +68,8 @@ class _TeacherViewState extends State<TeacherView> {
             padding: const EdgeInsets.all(16),
             gap: 8,
             tabs: const [
-              GButton(icon: Icons.settings, text: "Study"),
               GButton(icon: Icons.home, text: "Home"),
+              GButton(icon: Icons.settings, text: "Teach"),
               GButton(icon: Icons.person_rounded, text: "Profile")
             ],
             selectedIndex: _selectedIndex,

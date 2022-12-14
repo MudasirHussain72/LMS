@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -8,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project/ui/screens/student_view/student_view.dart';
 import 'package:project/ui/screens/teacher_view/teacher_view.dart';
-import 'package:project/utils/utils.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
 import 'package:project/widgets/auth_widgets/auth_ui_picture_parts.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -26,38 +22,29 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  void login() {
-    _auth
-        .signInWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim())
-        .then(
-      (value) async {
-        // Navigator.pushNamed(context, "/HomeScreen");
-        final auth = FirebaseAuth.instance;
-        final user = auth.currentUser;
-        final prefs = await SharedPreferences.getInstance();
-        final bool? isTeacher = prefs.getBool('isTeacher');
-        if (user != null && isTeacher == false) {
-          Timer(const Duration(seconds: 2), () {
-            Navigator.pushReplacementNamed(context, "/StudentView");
-          });
-        } else if (user != null && isTeacher == true) {
-          Timer(const Duration(seconds: 2), () {
-            Navigator.pushReplacementNamed(context, "/TeacherView");
-          });
-        } else {
-          Timer(const Duration(seconds: 2), () {
-            Navigator.pushReplacementNamed(context, "/LoginScreen");
-          });
+
+  void signIn(String email, String password) async {
+    try {
+      // ignore: unused_local_variable
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      route();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        if (kDebugMode) {
+          print('No user found for that email.');
         }
-      },
-    ).onError((error, stackTrace) {
-      Utils().toastMessage(error.toString());
-    });
+      } else if (e.code == 'wrong-password') {
+        if (kDebugMode) {
+          print('Wrong password provided for that user.');
+        }
+      }
+    }
   }
 
-//
   void route() {
     User? user = FirebaseAuth.instance.currentUser;
     // ignore: unused_local_variable
@@ -90,29 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void signIn(String email, String password) async {
-    try {
-      // ignore: unused_local_variable
-      UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      route();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        if (kDebugMode) {
-          print('No user found for that email.');
-        }
-      } else if (e.code == 'wrong-password') {
-        if (kDebugMode) {
-          print('Wrong password provided for that user.');
-        }
-      }
-    }
-  }
-
-//
   @override
   void dispose() {
     super.dispose();
