@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project/global_var.dart';
 import 'package:project/widgets/auth_widgets/auth_ui_picture_parts.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddUserDetailsScreen extends StatefulWidget {
   const AddUserDetailsScreen({super.key});
@@ -105,8 +107,16 @@ class _AddUserDetailsScreenState extends State<AddUserDetailsScreen> {
                           ontap: () {}, title: "Add", color: Colors.orange),
                       const SizedBox(height: 20),
                       RoundedButton(
-                          ontap: () {},
-                          title: "Get Started",
+                          ontap: () async {
+                            signOut();
+                            SharedPreferences preferences =
+                                await SharedPreferences.getInstance();
+                            await preferences.clear();
+                            // ignore: use_build_context_synchronously
+                            await Navigator.pushReplacementNamed(
+                                context, "/LoginScreen");
+                          },
+                          title: "signOut();",
                           color: const Color(0xff6D88E7))
                     ],
                   ),

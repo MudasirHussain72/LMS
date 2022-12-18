@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  // ignore: unused_field
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void signIn(String email, String password) async {

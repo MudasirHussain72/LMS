@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:project/global_var.dart';
-import 'package:project/ui/screens/clear_your_doubts.dart';
+import 'package:project/ui/screens/teacher_view/teacher_messages.dart';
 import 'package:project/ui/screens/home_screen.dart';
 import 'package:project/ui/screens/teacher_view/add_profile_details_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,8 +51,10 @@ class _TeacherViewState extends State<TeacherView> {
       //             Icons.logout_outlined,
       //           )),
       //     ]),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: SafeArea(
+        child: Center(
+          child: _widgetOptions.elementAt(_selectedIndex),
+        ),
       ),
       bottomNavigationBar: Container(
         color: Colors.black,
@@ -69,8 +70,8 @@ class _TeacherViewState extends State<TeacherView> {
             gap: 8,
             tabs: const [
               GButton(icon: Icons.home, text: "Home"),
-              GButton(icon: Icons.settings, text: "Teach"),
-              GButton(icon: Icons.person_rounded, text: "Profile")
+              GButton(icon: Icons.message_rounded, text: "Teach"),
+              GButton(icon: Icons.person_rounded, text: "Profile"),
             ],
             selectedIndex: _selectedIndex,
             onTabChange: (index) {
