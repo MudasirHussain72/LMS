@@ -13,13 +13,6 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
   TextEditingController sendMess = TextEditingController();
   var collectionRef = FirebaseFirestore.instance.collection("messages");
   Future sendMessage(String messValue) async {
-    FirebaseFirestore.instance.collection('messages').add({
-      'text': messValue,
-    });
-  }
-
-  static String? userSenderName;
-  static void showDisplayName() async {
     var collection = FirebaseFirestore.instance.collection('users');
     //userUid is the current auth user
     var docSnapshot =
@@ -28,6 +21,22 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
     Map<String, dynamic> data = docSnapshot.data()!;
 
     userSenderName = data['fullName'];
+    //
+    FirebaseFirestore.instance
+        .collection('messages')
+        .add({'text': messValue, "userSenderName": userSenderName});
+  }
+
+  static String? userSenderName;
+  static void showDisplayName() async {
+    // var collection = FirebaseFirestore.instance.collection('users');
+    // //userUid is the current auth user
+    // var docSnapshot =
+    //     await collection.doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+    // Map<String, dynamic> data = docSnapshot.data()!;
+
+    // userSenderName = data['fullName'];
   }
 
   @override
@@ -54,46 +63,46 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
                     bottomRight: Radius.circular(20)))),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+        padding: const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
         child: Stack(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                "Ask any query\nfrom Teacher",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Container(
-                height: 60,
-                width: 60,
-                decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.orange.shade300,
-                    ),
-                    boxShadow: const [
-                      BoxShadow(
-                        blurStyle: BlurStyle.outer,
-                        color: Colors.grey,
-                        blurRadius: 2.0,
-                        spreadRadius: 0.0,
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(15),
-                    image: const DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            "https://yt3.ggpht.com/-6Au8re7SVGpsht0k2lMIFvH4_Pjy_fFBqBAqOUKVhhToI9zg7vNc9QAu_-PZalw8ZK9zvCC=s108-c-k-c0x00ffffff-no-rj"))),
-              ),
-            ],
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   // crossAxisAlignment: CrossAxisAlignment.center,
+          //   children: [
+          //     const Text(
+          //       "Ask any query\nfrom Teacher",
+          //       style: TextStyle(
+          //         fontSize: 20,
+          //         fontWeight: FontWeight.bold,
+          //         color: Colors.black,
+          //       ),
+          //     ),
+          //     const SizedBox(
+          //       width: 8,
+          //     ),
+          //     Container(
+          //       height: 60,
+          //       width: 60,
+          //       decoration: BoxDecoration(
+          //           border: Border.all(
+          //             color: Colors.orange.shade300,
+          //           ),
+          //           boxShadow: const [
+          //             BoxShadow(
+          //               blurStyle: BlurStyle.outer,
+          //               color: Colors.grey,
+          //               blurRadius: 2.0,
+          //               spreadRadius: 0.0,
+          //             ),
+          //           ],
+          //           borderRadius: BorderRadius.circular(15),
+          //           image: const DecorationImage(
+          //               fit: BoxFit.cover,
+          //               image: NetworkImage(
+          //                   "https://yt3.ggpht.com/-6Au8re7SVGpsht0k2lMIFvH4_Pjy_fFBqBAqOUKVhhToI9zg7vNc9QAu_-PZalw8ZK9zvCC=s108-c-k-c0x00ffffff-no-rj"))),
+          //     ),
+          //   ],
+          // ),
           // new tessamges section text
           Align(
             heightFactor: 10,
@@ -137,7 +146,7 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            userSenderName.toString(),
+                            document['userSenderName'],
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                           ),
@@ -151,18 +160,24 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
                                   color: Colors.black,
                                   margin: const EdgeInsets.only(right: 4),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      document['text'],
-                                      style: const TextStyle(fontSize: 13),
-                                    ),
-                                    // Text(
-                                    //   'check them out noww!!',
-                                    //   style: TextStyle(fontSize: 13),
-                                    // ),
-                                  ],
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          document['text'],
+                                          overflow: TextOverflow.visible,
+                                          style: const TextStyle(fontSize: 13),
+                                        ),
+                                      ),
+                                      // Text(
+                                      //   'check them out noww!!',
+                                      //   style: TextStyle(fontSize: 13),
+                                      // ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

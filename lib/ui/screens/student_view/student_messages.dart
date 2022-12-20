@@ -13,13 +13,6 @@ class _StudentMsgScreenState extends State<StudentMsgScreen> {
   TextEditingController sendMess = TextEditingController();
   var collectionRef = FirebaseFirestore.instance.collection("messages");
   Future sendMessage(String messValue) async {
-    FirebaseFirestore.instance.collection('messages').add({
-      'text': messValue,
-    });
-  }
-
-  static String? userSenderName;
-  static void showDisplayName() async {
     var collection = FirebaseFirestore.instance.collection('users');
     //userUid is the current auth user
     var docSnapshot =
@@ -28,6 +21,22 @@ class _StudentMsgScreenState extends State<StudentMsgScreen> {
     Map<String, dynamic> data = docSnapshot.data()!;
 
     userSenderName = data['fullName'];
+    //
+    FirebaseFirestore.instance
+        .collection('messages')
+        .add({'text': messValue, "userSenderName": userSenderName});
+  }
+
+  static String? userSenderName;
+  static void showDisplayName() async {
+    // var collection = FirebaseFirestore.instance.collection('users');
+    // //userUid is the current auth user
+    // var docSnapshot =
+    //     await collection.doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+    // Map<String, dynamic> data = docSnapshot.data()!;
+
+    // userSenderName = data['fullName'];
   }
 
   @override
@@ -137,7 +146,7 @@ class _StudentMsgScreenState extends State<StudentMsgScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            userSenderName.toString(),
+                            document['userSenderName'],
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                           ),
@@ -151,18 +160,27 @@ class _StudentMsgScreenState extends State<StudentMsgScreen> {
                                   color: Colors.black,
                                   margin: const EdgeInsets.only(right: 4),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      document['text'],
-                                      style: const TextStyle(fontSize: 13),
-                                    ),
-                                    // Text(
-                                    //   'check them out noww!!',
-                                    //   style: TextStyle(fontSize: 13),
-                                    // ),
-                                  ],
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: Text(
+                                          document['text'],
+                                          // overflow: TextOverflow.clip,
+                                          // maxLines: 1,
+                                          overflow: TextOverflow.visible,
+                                          // softWrap: false,
+                                          style: const TextStyle(fontSize: 13),
+                                        ),
+                                      ),
+                                      // Text(
+                                      //   'check them out noww!!',
+                                      //   style: TextStyle(fontSize: 13),
+                                      // ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
