@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ClearYourDoubtsScreen extends StatefulWidget {
   const ClearYourDoubtsScreen({super.key});
@@ -12,14 +12,28 @@ class ClearYourDoubtsScreen extends StatefulWidget {
 class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
   TextEditingController sendMess = TextEditingController();
   var collectionRef = FirebaseFirestore.instance.collection("messages");
-  var userRef = FirebaseFirestore.instance.collection("users");
   Future sendMessage(String messValue) async {
-    final prefs = await SharedPreferences.getInstance();
-    final String? fullName = prefs.getString('fullName');
     FirebaseFirestore.instance.collection('messages').add({
       'text': messValue,
-      "fullName": fullName,
     });
+  }
+
+  static String? userSenderName;
+  static void showDisplayName() async {
+    var collection = FirebaseFirestore.instance.collection('users');
+    //userUid is the current auth user
+    var docSnapshot =
+        await collection.doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+    Map<String, dynamic> data = docSnapshot.data()!;
+
+    userSenderName = data['fullName'];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    showDisplayName();
   }
 
   @override
@@ -104,8 +118,10 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 100, bottom: 50),
             child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('messages').snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('messages')
+                  .orderBy("text", descending: false)
+                  .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
@@ -121,7 +137,7 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            document['fullName'],
+                            userSenderName.toString(),
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w600),
                           ),

@@ -34,23 +34,6 @@ class _TeacherViewState extends State<TeacherView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //     automaticallyImplyLeading: false,
-      //     title: const Text("Teacher view"),
-      //     actions: [
-      //       InkWell(
-      //           onTap: () async {
-      //             signOut();
-      //             SharedPreferences preferences =
-      //                 await SharedPreferences.getInstance();
-      //             await preferences.clear();
-      //             // ignore: use_build_context_synchronously
-      //             await Navigator.pushReplacementNamed(context, "/LoginScreen");
-      //           },
-      //           child: const Icon(
-      //             Icons.logout_outlined,
-      //           )),
-      //     ]),
       body: SafeArea(
         child: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
