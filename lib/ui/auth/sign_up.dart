@@ -55,7 +55,9 @@ class _SignUpState extends State<SignUp> {
           "phone": int.parse(phoneController.text.trim()),
           "gender": gederController.text.trim(),
           "isTeacher": isTeacher,
+          "coins": 0,
         });
+        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text("account created successfully")));
       });

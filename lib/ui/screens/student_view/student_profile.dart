@@ -8,14 +8,14 @@ import 'package:project/widgets/auth_widgets/profile_ui_parts.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TeacherProfile extends StatefulWidget {
-  const TeacherProfile({super.key});
+class StudentProfile extends StatefulWidget {
+  const StudentProfile({super.key});
 
   @override
-  State<TeacherProfile> createState() => _TeacherProfileState();
+  State<StudentProfile> createState() => _StudentProfileState();
 }
 
-class _TeacherProfileState extends State<TeacherProfile> {
+class _StudentProfileState extends State<StudentProfile> {
   var name;
   var email;
   var phone;

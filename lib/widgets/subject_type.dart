@@ -56,19 +56,5 @@ class SubjectType extends StatelessWidget {
             )),
       );
     }
-    // return Padding(
-    //   padding: const EdgeInsets.symmetric(vertical: 5.0),
-    //   child: CircleAvatar(
-    //       child: Text(
-    //         subjName,
-    //         style: TextStyle(
-    //           fontSize: 20,
-    //           fontWeight: FontWeight.w600,
-    //           color: Colors.white,
-    //         ),
-    //       ),
-    //       radius: (22),
-    //       backgroundColor: bgColor),
-    // );
   }
 }

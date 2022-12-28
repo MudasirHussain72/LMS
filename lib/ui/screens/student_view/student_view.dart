@@ -3,7 +3,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:project/ui/screens/student_view/reward.dart';
 import 'package:project/ui/screens/student_view/student_messages.dart';
 import 'package:project/ui/screens/home_screen.dart';
-import 'package:project/ui/screens/teacher_view/add_profile_details_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentView extends StatefulWidget {
@@ -52,9 +51,15 @@ class _StudentViewState extends State<StudentView> {
             padding: const EdgeInsets.all(16),
             gap: 8,
             tabs: const [
-              GButton(icon: Icons.home, text: "Home"),
-              GButton(icon: Icons.message_rounded, text: "Teach"),
-              GButton(icon: Icons.person_rounded, text: "Profile"),
+              GButton(
+                icon: Icons.home,
+              ),
+              GButton(
+                icon: Icons.message_rounded,
+              ),
+              GButton(
+                icon: Icons.emoji_events_outlined,
+              ),
             ],
             selectedIndex: _selectedIndex,
             onTabChange: (index) {

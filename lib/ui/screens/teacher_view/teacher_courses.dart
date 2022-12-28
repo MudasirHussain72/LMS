@@ -1,6 +1,7 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
@@ -14,6 +15,7 @@ class TeacherCourses extends StatefulWidget {
 
 class _TeacherCoursesState extends State<TeacherCourses> {
   static String? profName;
+  // ignore: unused_field
   static String? uid;
   static void showDisplayName() async {
     var collection = FirebaseFirestore.instance.collection('users');
@@ -57,7 +59,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
     return Scaffold(
       body: Stack(children: [
         Container(
-          height: 180,
+          height: 150,
           width: double.infinity,
           decoration: const BoxDecoration(
             color: Color(0xff6D88E7),
@@ -66,16 +68,15 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                 bottomRight: Radius.circular(25)),
           ),
           child: Padding(
-            
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
               child:
                   Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Container(
-                  height: 100,
-                  width: 100,
+                  height: 80,
+                  width: 80,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.yellow,
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: const Icon(Icons.person, size: 50),
@@ -85,7 +86,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                   child: Text(
                     "Prof. ${"$profName".toUpperCase()}",
                     style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+                        fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 )
               ]),
@@ -93,7 +94,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
           ),
         ),
         const Padding(
-          padding: EdgeInsets.only(top: 200, left: 25),
+          padding: EdgeInsets.only(top: 180, left: 25),
           child: Text(
             "My Courses",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
@@ -101,7 +102,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
         ),
         Padding(
           padding:
-              const EdgeInsets.only(top: 230, bottom: 50, left: 15, right: 15),
+              const EdgeInsets.only(top: 210, bottom: 50, left: 15, right: 15),
           child: StreamBuilder(
             stream: FirebaseFirestore.instance
                 .collection('courses')
@@ -177,8 +178,8 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                   showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
-                      title: Center(child: const Text("Add Course")),
-                      content: Container(
+                      title: const Center(child: Text("Add Course")),
+                      content: SizedBox(
                         height: 240,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,7 +199,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                                   onPressed: () {
                                     createCourse();
                                   },
-                                  child: Text("Create")),
+                                  child: const Text("Create")),
                             )
                           ],
                         ),
