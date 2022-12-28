@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:project/ui/screens/teacher_view/teacher_courses.dart';
 import 'package:project/ui/screens/teacher_view/teacher_messages.dart';
-import 'package:project/ui/screens/home_screen.dart';
 import 'package:project/ui/screens/teacher_view/add_profile_details_screen.dart';
+import 'package:project/ui/screens/teacher_view/teacher_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TeacherView extends StatefulWidget {
@@ -21,9 +22,10 @@ class _TeacherViewState extends State<TeacherView> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
+    TeacherCourses(),
     ClearYourDoubtsScreen(),
-    AddUserDetailsScreen(),
+    // AddUserDetailsScreen(),
+    TeacherProfile()
   ];
   @override
   void initState() {

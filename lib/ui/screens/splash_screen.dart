@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text("SPLASH")),
+      body: Center(child: Text("LOADING")),
     );
   }
 }

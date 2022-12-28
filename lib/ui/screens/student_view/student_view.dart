@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:project/ui/screens/student_view/reward.dart';
 import 'package:project/ui/screens/student_view/student_messages.dart';
-import 'package:project/ui/screens/teacher_view/teacher_messages.dart';
 import 'package:project/ui/screens/home_screen.dart';
 import 'package:project/ui/screens/teacher_view/add_profile_details_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentView extends StatefulWidget {
   const StudentView({super.key});
-
   @override
   State<StudentView> createState() => _StudentViewState();
 }
@@ -24,7 +23,7 @@ class _StudentViewState extends State<StudentView> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     StudentMsgScreen(),
-    AddUserDetailsScreen(),
+    Reward(),
   ];
   @override
   void initState() {
