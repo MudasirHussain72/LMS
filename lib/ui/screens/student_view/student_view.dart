@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:project/ui/screens/student_view/reward.dart';
+import 'package:project/ui/screens/student_view/coupons.dart';
+import 'package:project/ui/screens/student_view/my_rewards.dart';
 import 'package:project/ui/screens/student_view/student_messages.dart';
 import 'package:project/ui/screens/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +23,7 @@ class _StudentViewState extends State<StudentView> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     StudentMsgScreen(),
-    Reward(),
+    MyRewards(),
   ];
   @override
   void initState() {
