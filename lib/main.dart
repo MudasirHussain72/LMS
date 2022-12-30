@@ -7,7 +7,7 @@ import 'package:project/ui/screens/teacher_view/add_profile_details_screen.dart'
 import 'package:project/ui/auth/login.dart';
 import 'package:project/ui/auth/reset_password.dart';
 import 'package:project/ui/auth/sign_up.dart';
-import 'package:project/ui/screens/home_screen.dart';
+import 'package:project/ui/screens/student_view/home_screen.dart';
 import 'package:project/ui/screens/splash_screen.dart';
 import 'package:project/ui/screens/student_view/student_view.dart';
 import 'package:project/ui/screens/teacher_view/teacher_course_details.dart';

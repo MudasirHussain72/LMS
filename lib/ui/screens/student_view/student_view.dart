@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:project/ui/screens/student_view/coupons.dart';
 import 'package:project/ui/screens/student_view/my_rewards.dart';
-import 'package:project/ui/screens/student_view/student_messages.dart';
-import 'package:project/ui/screens/home_screen.dart';
+import 'package:project/ui/screens/student_view/search.dart';
+import 'package:project/ui/screens/student_view/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StudentView extends StatefulWidget {
@@ -18,12 +17,13 @@ class _StudentViewState extends State<StudentView> {
     await prefs.setBool('isTeacher', false);
   }
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    HomeScreen(),
-    StudentMsgScreen(),
     MyRewards(),
+    HomeScreen(),
+    // StudentMsgScreen(),
+    Search()
   ];
   @override
   void initState() {
@@ -53,13 +53,13 @@ class _StudentViewState extends State<StudentView> {
             gap: 8,
             tabs: const [
               GButton(
+                icon: Icons.emoji_events_outlined,
+              ),
+              GButton(
                 icon: Icons.home,
               ),
               GButton(
-                icon: Icons.message_rounded,
-              ),
-              GButton(
-                icon: Icons.emoji_events_outlined,
+                icon: Icons.search_rounded,
               ),
             ],
             selectedIndex: _selectedIndex,

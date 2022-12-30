@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, unused_local_variable
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class _RewardState extends State<Reward> {
   Future<dynamic> coinMinus(Image image) async {
     await showDialog(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return Center(
           child: Container(
             decoration: BoxDecoration(
@@ -42,20 +41,28 @@ class _RewardState extends State<Reward> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                      "REDEEM CONFIRMATION",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    const Expanded(
+                      child: DefaultTextStyle(
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600),
+                        child: Text(
+                          "REDEEM CONFIRMATION",
+                        ),
+                      ),
                     ),
-                    const Text(
-                      "Are you sure you want to redeem your points for this coupon? Please remember code before press redeem",
-                      style: TextStyle(fontWeight: FontWeight.w300),
-                      textAlign: TextAlign.center,
+                    const Expanded(
+                      child: DefaultTextStyle(
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.w300),
+                        child: Text(
+                          "Are you sure you want to redeem your points for this coupon? Please remember code before press redeem",
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ),
-                    FittedBox(
-                      fit: BoxFit.contain,
-                      child: image,
-                    ),
+                    image,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -66,9 +73,10 @@ class _RewardState extends State<Reward> {
                               await FirebaseFirestore.instance
                                   .collection("users")
                                   .doc(FirebaseAuth.instance.currentUser!.uid)
-                                  .update({'coins': userCoins});
-                              setState(() {});
-                              Navigator.pop(context);
+                                  .update({'coins': userCoins}).then((value) {
+                                setState(() {});
+                                Navigator.pop(context);
+                              });
                             },
                             style: ButtonStyle(
                                 backgroundColor:
@@ -152,64 +160,65 @@ class _RewardState extends State<Reward> {
               const Center(
                   child: Text("You Have Not Enough Points To Get A Voucher"))
             ] else if (userCoins >= 200 && userCoins < 400) ...[
-              GestureDetector(
+              InkWell(
                 onTap: () => coinMinus(Image.asset("assets/ui_images/mc.png")),
                 child: Image.asset("assets/ui_images/mc.png"),
               )
             ] else if (userCoins >= 400 && userCoins < 600) ...[
-              GestureDetector(
-                onTap: () =>
-                    coinMinus(Image.asset("assets/ui_images/pizza.png")),
+              InkWell(
+                onTap: () {
+                  coinMinus(Image.asset("assets/ui_images/pizza.png"));
+                },
                 child: Image.asset("assets/ui_images/pizza.png"),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: () => coinMinus(Image.asset("assets/ui_images/mc.png")),
                 child: Image.asset("assets/ui_images/mc.png"),
               )
             ] else if (userCoins >= 600 && userCoins < 800) ...[
-              GestureDetector(
+              InkWell(
                   onTap: () => (Image.asset("assets/ui_images/pizza.png")),
                   child: Image.asset("assets/ui_images/pizza.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () => (Image.asset("assets/ui_images/mc.png")),
                   child: Image.asset("assets/ui_images/mc.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () =>
                       coinMinus(Image.asset("assets/ui_images/foodPanda.png")),
                   child: Image.asset("assets/ui_images/foodPanda.png"))
             ] else if (userCoins >= 800 && userCoins < 1000) ...[
-              GestureDetector(
+              InkWell(
                   onTap: () =>
                       coinMinus(Image.asset("assets/ui_images/pizza.png")),
                   child: Image.asset("assets/ui_images/pizza.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () => (Image.asset("assets/ui_images/mc.png")),
                   child: Image.asset("assets/ui_images/mc.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () =>
                       coinMinus(Image.asset("assets/ui_images/foodPanda.png")),
                   child: Image.asset("assets/ui_images/foodPanda.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () =>
                       coinMinus(Image.asset("assets/ui_images/udemy.png")),
                   child: Image.asset("assets/ui_images/udemy.png"))
             ] else if (userCoins >= 1000 && userCoins < 2000) ...[
-              GestureDetector(
+              InkWell(
                   onTap: () =>
                       coinMinus(Image.asset("assets/ui_images/pizza.png")),
                   child: Image.asset("assets/ui_images/pizza.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () => (Image.asset("assets/ui_images/mc.png")),
                   child: Image.asset("assets/ui_images/mc.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () =>
                       coinMinus(Image.asset("assets/ui_images/foodPanda.png")),
                   child: Image.asset("assets/ui_images/foodPanda.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () =>
                       coinMinus(Image.asset("assets/ui_images/udemy.png")),
                   child: Image.asset("assets/ui_images/udemy.png")),
-              GestureDetector(
+              InkWell(
                   onTap: () =>
                       coinMinus(Image.asset("assets/ui_images/mc.png")),
                   child: Image.asset("assets/ui_images/mc.png")),

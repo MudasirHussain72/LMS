@@ -1,8 +1,9 @@
-import 'dart:ui';
+// ignore_for_file: unused_local_variable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project/ui/screens/student_view/coupons.dart';
 
 class MyRewards extends StatefulWidget {
   const MyRewards({super.key});
@@ -42,7 +43,7 @@ class _MyRewardsState extends State<MyRewards> {
         Container(
             height: 200,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(25),
                     bottomLeft: Radius.circular(25)),
@@ -55,15 +56,15 @@ class _MyRewardsState extends State<MyRewards> {
                     Colors.orange,
                   ],
                 )),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
             child: Align(
               alignment: Alignment.bottomLeft,
               child: RichText(
-                text: TextSpan(
+                text: const TextSpan(
                   text: 'Wellcome to\n',
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w300),
-                  children: const <TextSpan>[
+                  children: <TextSpan>[
                     TextSpan(
                         text: 'My Rewards',
                         style: TextStyle(
@@ -89,7 +90,7 @@ class _MyRewardsState extends State<MyRewards> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.star_rate_rounded,
                               size: 30,
@@ -100,7 +101,7 @@ class _MyRewardsState extends State<MyRewards> {
                         ),
                         Text(
                           userCoins.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 20,
                               color: Colors.black,
                               fontWeight: FontWeight.w500),
@@ -108,12 +109,12 @@ class _MyRewardsState extends State<MyRewards> {
                       ]),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     height: 120,
                     width: MediaQuery.of(context).size.width / 2.5,
                     decoration: BoxDecoration(
@@ -125,7 +126,7 @@ class _MyRewardsState extends State<MyRewards> {
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.align_vertical_bottom_rounded,
                               color: Colors.white,
@@ -138,8 +139,8 @@ class _MyRewardsState extends State<MyRewards> {
                             )
                           ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30.0),
+                        const Padding(
+                          padding: EdgeInsets.only(top: 30.0),
                           child: Text("Tasks",
                               style: TextStyle(color: Colors.white)),
                         )
@@ -147,9 +148,14 @@ class _MyRewardsState extends State<MyRewards> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => Navigator.pushNamed(context, "/Reward"),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Reward()),
+                      );
+                    },
                     child: Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       height: 120,
                       width: MediaQuery.of(context).size.width / 2.5,
                       decoration: BoxDecoration(
@@ -161,7 +167,7 @@ class _MyRewardsState extends State<MyRewards> {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
+                            children: const [
                               Icon(
                                 Icons.wallet_giftcard_rounded,
                                 color: Colors.white,
@@ -174,8 +180,8 @@ class _MyRewardsState extends State<MyRewards> {
                               )
                             ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 30.0),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 30.0),
                             child: Text("Redeem",
                                 style: TextStyle(color: Colors.white)),
                           )
@@ -185,7 +191,7 @@ class _MyRewardsState extends State<MyRewards> {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Container(
                 height: 80,
                 decoration: BoxDecoration(
@@ -200,7 +206,7 @@ class _MyRewardsState extends State<MyRewards> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.card_membership_outlined,
                               size: 30,
@@ -212,7 +218,7 @@ class _MyRewardsState extends State<MyRewards> {
                             )
                           ],
                         ),
-                        Icon(
+                        const Icon(
                           Icons.arrow_forward,
                           color: Colors.white,
                           size: 20,
