@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project/widgets/course_material.dart';
+import 'package:project/widgets/subject_type.dart';
 import 'package:project/widgets/user_profile_picture.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
     await FirebaseFirestore.instance.collection("courses").get();
   }
 
+  final courses = FirebaseFirestore.instance.collection("courses").snapshots();
   @override
   void initState() {
     getCourses();
@@ -47,58 +49,38 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: const CircleAvatar(
                       backgroundColor: Colors.amber,
-                      radius: 30,
+                      radius: 26,
                       child: Icon(Icons.person),
                     ),
                   ),
-                  // UserProfilePicture(
-                  //     picHeight: 50.0,
-                  //     picWidth: 50.0,
-                  //     imagePath: const NetworkImage(
-                  //         "https://yt3.ggpht.com/-6Au8re7SVGpsht0k2lMIFvH4_Pjy_fFBqBAqOUKVhhToI9zg7vNc9QAu_-PZalw8ZK9zvCC=s108-c-k-c0x00ffffff-no-rj")),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  // Container(
-                  //   height: 50,
-                  //   width: 85,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.orange[300],
-                  //     borderRadius: const BorderRadius.only(
-                  //       topRight: Radius.circular(10.0),
-                  //       bottomRight: Radius.circular(10.0),
-                  //     ),
-                  //   ),
-                  //   child: Center(
-                  //     child: CircleAvatar(
-                  //         radius: (22),
-                  //         backgroundColor: Colors.white,
-                  //         child: Text(
-                  //           "CS",
-                  //           style: TextStyle(
-                  //             fontSize: 20,
-                  //             fontWeight: FontWeight.w600,
-                  //             color: Colors.orange[300],
-                  //           ),
-                  //         )),
-                  //   ),
-                  // ),
-                  // FutureBuilder(
-                  //   future: getCourses(),
-                  //   builder: (context, snapshot) {
-                  //     if (snapshot.hasData) {
-
-                  //     }else{};
-                  //   },
-                  // ),
+                  const SizedBox(height: 10),
+                  StreamBuilder<QuerySnapshot>(
+                    stream: courses,
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      }
+                      if (snapshot.hasError) {
+                        return const Text("error");
+                      }
+                      return Expanded(
+                          child: ListView.builder(
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          return SubjectType(
+                              subjName: snapshot.data!.docs[index]["title"]
+                                  .toString(),
+                              bgColor: Colors.purple[400],
+                              isSubjectSelected: false);
+                        },
+                      ));
+                    },
+                  )
                 ],
               ),
             ),
           ),
-          // SubjectType(
-          //                 subjName: "CS",
-          //                 bgColor: Colors.purple[400],
-          //                 isSubjectSelected: false);
           Padding(
             padding: const EdgeInsets.only(left: 75.0),
             child: Container(
@@ -209,3 +191,38 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+//
+ // Container(
+                  //   height: 50,
+                  //   width: 85,
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.orange[300],
+                  //     borderRadius: const BorderRadius.only(
+                  //       topRight: Radius.circular(10.0),
+                  //       bottomRight: Radius.circular(10.0),
+                  //     ),
+                  //   ),
+                  //   child: Center(
+                  //     child: CircleAvatar(
+                  //         radius: (22),
+                  //         backgroundColor: Colors.white,
+                  //         child: Text(
+                  //           "CS",
+                  //           style: TextStyle(
+                  //             fontSize: 20,
+                  //             fontWeight: FontWeight.w600,
+                  //             color: Colors.orange[300],
+                  //           ),
+                  //         )),
+                  //   ),
+                  // ),
+                  //
+                  
+                    // UserProfilePicture(
+                  //     picHeight: 50.0,
+                  //     picWidth: 50.0,
+                  //     imagePath: const NetworkImage(
+                  //         "https://yt3.ggpht.com/-6Au8re7SVGpsht0k2lMIFvH4_Pjy_fFBqBAqOUKVhhToI9zg7vNc9QAu_-PZalw8ZK9zvCC=s108-c-k-c0x00ffffff-no-rj")),
+               
