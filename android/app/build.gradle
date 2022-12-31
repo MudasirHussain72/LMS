@@ -29,7 +29,7 @@ android {
     defaultConfig {
         multiDexEnabled true
     }
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {

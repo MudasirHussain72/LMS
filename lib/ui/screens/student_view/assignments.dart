@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
 
@@ -13,11 +12,11 @@ class Assignments extends StatefulWidget {
 }
 
 class _AssignmentsState extends State<Assignments> {
-  PlatformFile? pickedFile;
+  // PlatformFile? pickedFile;
   Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles();
+    // final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     setState(() {
-      pickedFile = result!.files.first;
+      // pickedFile = result!.files.first;
     });
     // final path = await FlutterDocumentPicker.openDocument();
     // print(path);
@@ -55,18 +54,28 @@ class _AssignmentsState extends State<Assignments> {
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "What to do?",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const SizedBox(height: 5),
+                      const Text(
+                        overflow: TextOverflow.visible,
                         "Everything is described in the attached file please download the file",
                         style: TextStyle(fontSize: 10),
                       ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text("assignment.pdf"),
+                          Icon(Icons.download)
+                        ],
+                      )
                     ]),
               ),
               Container(
@@ -77,22 +86,33 @@ class _AssignmentsState extends State<Assignments> {
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         "Upload",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          Text("assignment.pdf"),
+                          Icon(Icons.delete)
+                        ],
+                      ),
                     ]),
               ),
-              RoundedButton(
-                  ontap: () {
-                    selectFile();
-                  },
-                  title: "upload",
-                  color: const Color(0xff6D88E7))
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: RoundedButton(
+                    ontap: () {
+                      selectFile();
+                    },
+                    title: "upload",
+                    color: const Color(0xff6D88E7)),
+              )
             ]),
       ),
     );
