@@ -1,7 +1,10 @@
 // ignore_for_file: unused_local_variable, prefer_typing_uninitialized_variables, unused_field
-
+import 'dart:developer';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
@@ -16,7 +19,6 @@ class TeacherCourses extends StatefulWidget {
 class _TeacherCoursesState extends State<TeacherCourses> {
   static String? profName;
   static int? profPhone;
-
   var name;
   var email;
   var phone;
@@ -52,6 +54,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
 
   var courseNameController = TextEditingController();
   var courseDiscController = TextEditingController();
+
   void createCourse() {
     var newDocRef = FirebaseFirestore.instance.collection('courses').doc();
     newDocRef.set({
@@ -62,6 +65,25 @@ class _TeacherCoursesState extends State<TeacherCourses> {
       "teacherEmail": FirebaseAuth.instance.currentUser!.email,
       "teacherPhone": profPhone,
       "courseUid": newDocRef.id
+    }).then((value) => uploadFile(newDocRef.id));
+  }
+
+  Future uploadFile(String cUid) async {
+    final path = "courses/$cUid/${pickedFile!.name}";
+    final file = File(pickedFile!.path!);
+    final ref = FirebaseStorage.instance.ref().child(path);
+    uploadTask = ref.putFile(file);
+    final snapshot = await uploadTask!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    log("download link: $urlDownload");
+  }
+
+  PlatformFile? pickedFile;
+  UploadTask? uploadTask;
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    setState(() {
+      pickedFile = result!.files.first;
     });
   }
 
@@ -89,26 +111,11 @@ class _TeacherCoursesState extends State<TeacherCourses> {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Center(
-              child:
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Container(
-                  height: 80,
-                  width: 80,
-                  decoration: const BoxDecoration(
-                    color: Colors.yellow,
-                    borderRadius: BorderRadius.all(Radius.circular(20)),
-                  ),
-                  child: const Icon(Icons.person, size: 50),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 12.0, left: 20),
-                  child: Text(
-                    "Prof. ${"$profName".toUpperCase()}",
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                )
-              ]),
+              child: Text(
+                "Prof. ${"$profName".toUpperCase()}",
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ),
@@ -146,10 +153,16 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                       child: Container(
                         height: 90,
                         // width: 140,
-                        decoration: BoxDecoration(
-                          color: Colors.deepPurple[200],
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(16)),
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: [
+                              Colors.yellow,
+                              Colors.orange,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                         child: Center(
                           child: Row(
@@ -197,33 +210,38 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                   showDialog(
                     context: context,
                     builder: (ctx) => AlertDialog(
+                      buttonPadding: const EdgeInsets.all(20),
                       title: const Center(child: Text("Add Course")),
                       content: SizedBox(
-                        height: 240,
+                        height: 200,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Course Name"),
+                            // const Text("Course Name"),
                             MyTextField(
                                 controller: courseNameController,
-                                hintText: "",
+                                hintText: "Course Name",
                                 color: Colors.amber),
-                            const Text("Course Discription"),
+                            // const Text("Course Discription"),
                             MyTextField(
                                 controller: courseDiscController,
-                                hintText: "",
+                                hintText: "Course Discription",
                                 color: Colors.amber),
-                            Center(
-                              child: ElevatedButton(
-                                  onPressed: () {
-                                    createCourse();
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text("Create")),
-                            )
+                            Text(pickedFile!.name.toString()),
                           ],
                         ),
                       ),
+                      actions: [
+                        ElevatedButton(
+                            onPressed: selectFile,
+                            child: const Text("Pick pdf")),
+                        ElevatedButton(
+                            onPressed: () {
+                              createCourse();
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Create")),
+                      ],
                     ),
                   );
                 },

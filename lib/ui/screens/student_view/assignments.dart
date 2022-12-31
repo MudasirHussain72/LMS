@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
 
@@ -12,20 +13,21 @@ class Assignments extends StatefulWidget {
 }
 
 class _AssignmentsState extends State<Assignments> {
+  late Future<ListResult> futureFiles;
   // PlatformFile? pickedFile;
-  Future selectFile() async {
-    // final result = await FilePicker.platform.pickFiles(allowMultiple: false);
-    setState(() {
-      // pickedFile = result!.files.first;
-    });
-    // final path = await FlutterDocumentPicker.openDocument();
-    // print(path);
-    // File file = File(path!);
+  Future selectFile() async {}
+  @override
+  void initState() {
+    super.initState();
+    futureFiles = FirebaseStorage.instance
+        .ref("courses/${widget.courseUid.toString()}/")
+        .listAll();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[400],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -40,7 +42,6 @@ class _AssignmentsState extends State<Assignments> {
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20)))),
       ),
-      backgroundColor: Colors.grey[400],
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
         child: Column(
@@ -69,12 +70,33 @@ class _AssignmentsState extends State<Assignments> {
                         style: TextStyle(fontSize: 10),
                       ),
                       const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text("assignment.pdf"),
-                          Icon(Icons.download)
-                        ],
+                      Expanded(
+                        child: FutureBuilder<ListResult>(
+                          future: futureFiles,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final files = snapshot.data!.items;
+                              return ListView.builder(
+                                itemCount: files.length,
+                                itemBuilder: (context, index) {
+                                  final file = files[index];
+                                  return ListTile(
+                                    title: Text(
+                                      file.name,
+                                    ),
+                                    trailing: IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(Icons.download)),
+                                  );
+                                },
+                              );
+                            } else if (snapshot.hasError) {
+                              return const Text("error occured");
+                            } else {
+                              return const Center(child: CircularProgressIndicator());
+                            }
+                          },
+                        ),
                       )
                     ]),
               ),
