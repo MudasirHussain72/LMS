@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, prefer_typing_uninitialized_variables, unused_field
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,34 +15,53 @@ class TeacherCourses extends StatefulWidget {
 
 class _TeacherCoursesState extends State<TeacherCourses> {
   static String? profName;
-  // ignore: unused_field
+  static int? profPhone;
+
+  var name;
+  var email;
+  var phone;
   static String? uid;
   static void showDisplayName() async {
     var collection = FirebaseFirestore.instance.collection('users');
     var coursesCollection = FirebaseFirestore.instance.collection('courses');
-
     //userUid is the current auth user
     var docSnapshot =
         await collection.doc(FirebaseAuth.instance.currentUser!.uid).get();
-
     Map<String, dynamic> data = docSnapshot.data()!;
-
     profName = data['fullName'];
-    //
+    profPhone = data['phone'];
+
     var docSnapshot2 = await collection.doc().get();
-
     Map<String, dynamic> data2 = docSnapshot2.data()!;
-
     uid = data2['fullName'];
+  }
+
+  Future<void> getuserData() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((event) {
+      // you can access the values by
+      name = event['fullName'];
+      email = event['email'];
+      phone = event['phone'];
+    });
+    setState(() {});
   }
 
   var courseNameController = TextEditingController();
   var courseDiscController = TextEditingController();
   void createCourse() {
-    FirebaseFirestore.instance.collection("courses").add({
+    var newDocRef = FirebaseFirestore.instance.collection('courses').doc();
+    newDocRef.set({
       "title": courseNameController.text.trim().toString(),
       "disc": courseDiscController.text.trim().toString(),
-      "teacherUid": FirebaseAuth.instance.currentUser!.uid
+      "teacherUid": FirebaseAuth.instance.currentUser!.uid,
+      "teacherName": profName.toString(),
+      "teacherEmail": FirebaseAuth.instance.currentUser!.email,
+      "teacherPhone": profPhone,
+      "courseUid": newDocRef.id
     });
   }
 
@@ -198,6 +217,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                               child: ElevatedButton(
                                   onPressed: () {
                                     createCourse();
+                                    Navigator.pop(context);
                                   },
                                   child: const Text("Create")),
                             )
