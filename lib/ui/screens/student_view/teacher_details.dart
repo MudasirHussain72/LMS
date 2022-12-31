@@ -1,4 +1,5 @@
-import 'dart:ui';
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 
 import 'package:flutter/material.dart';
 
@@ -43,60 +44,60 @@ class _ShowTeacherDetailsState extends State<ShowTeacherDetails> {
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             height: 350,
             width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(20))),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CircleAvatar(
-                    child: Icon(Icons.person),
+                  const CircleAvatar(
                     radius: 30,
+                    child: Icon(Icons.person),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Teacher Name",
+                      const Text("Teacher Name",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500)),
                       Text(widget.teacherName.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500))
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Teacher Email",
+                      const Text("Teacher Email",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500)),
                       Text(widget.teacherEmail.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500))
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Teacher Phone",
+                      const Text("Teacher Phone",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500)),
                       Text(widget.teacherPhone.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500))
                     ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Teacher UID",
+                      const Text("Teacher UID",
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w500)),
                       Text(widget.teacherUid.toString(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 10, fontWeight: FontWeight.w500))
                     ],
                   )

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:project/ui/screens/student_view/assignments.dart';
 import 'package:project/ui/screens/student_view/coupons.dart';
 import 'package:project/ui/screens/student_view/student_messages.dart';
 import 'package:project/ui/screens/student_view/student_profile.dart';
-import 'package:project/ui/screens/student_view/teacher_details.dart';
 import 'package:project/ui/screens/teacher_view/add_profile_details_screen.dart';
 import 'package:project/ui/auth/login.dart';
 import 'package:project/ui/auth/reset_password.dart';

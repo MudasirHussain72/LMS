@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .docs[selectedCourseIndex]
                                                         ["teacherName"]
                                                     .toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w600,
                                                   color: Colors.white,
@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .docs[selectedCourseIndex]
                                                         ["courseUid"]
                                                     .toString(),
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   fontSize: 8,
                                                   color: Colors.white,
                                                 ),

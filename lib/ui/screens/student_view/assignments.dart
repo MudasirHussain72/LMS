@@ -1,4 +1,7 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
+import 'package:project/widgets/auth_widgets/rounded_button.dart';
 
 class Assignments extends StatefulWidget {
   var courseUid;
@@ -26,6 +29,10 @@ class _AssignmentsState extends State<Assignments> {
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20)))),
       ),
+      body: Column(children: [
+        RoundedButton(
+            ontap: () {}, title: "upload", color: const Color(0xff6D88E7))
+      ]),
     );
   }
 }
