@@ -5,12 +5,13 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
 
 class Assignments extends StatefulWidget {
@@ -74,8 +75,41 @@ class _AssignmentsState extends State<Assignments> {
     final url = await ref.getDownloadURL();
     final tempDir = await getTemporaryDirectory();
     final path = '${tempDir.path}/${ref.name}';
-    await Dio().download(url, path);
+    // await Dio().download(url, path);
 //
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+      //add more permission to request here.
+    ].request();
+
+    if (statuses[Permission.storage]!.isGranted) {
+      var dir = await DownloadsPathProvider.downloadsDirectory;
+      if (dir != null) {
+        String savename = path.toString();
+        String savePath = "${dir.path}/$savename";
+        print(savePath);
+        //output:  /storage/emulated/0/Download/banner.png
+
+        try {
+          await Dio().download(url, savePath,
+              onReceiveProgress: (received, total) {
+            if (total != -1) {
+              print((received / total * 100).toStringAsFixed(0) + "%");
+              //you can build progressbar feature too
+            }
+          });
+          print("File is saved to download folder.");
+        } on DioError catch (e) {
+          print(e.message);
+        }
+      }
+    } else {
+      print("No permission to read and write.");
+    }
+
+    // File file = File(path);
+    // Uint8List bytes = await file.readAsBytes();
+    // await FileSaver.instance.saveAs(path., bytes, mimeType: MimeType.PDF,);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Downloaded ${ref.name}')),
     );
