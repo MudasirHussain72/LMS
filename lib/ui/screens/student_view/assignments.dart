@@ -4,10 +4,13 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
 
 class Assignments extends StatefulWidget {
@@ -21,6 +24,7 @@ class Assignments extends StatefulWidget {
 class _AssignmentsState extends State<Assignments> {
   var userCoins = 0000;
   Future getCoins() async {
+    // ignore: unused_local_variable
     var uid = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection("users")
@@ -34,6 +38,8 @@ class _AssignmentsState extends State<Assignments> {
   }
 
   late Future<ListResult> futureFiles;
+  late Future<ListResult> future2Files;
+
   PlatformFile? pickedFile;
   UploadTask? uploadTask;
   Future selectFile() async {
@@ -51,7 +57,7 @@ class _AssignmentsState extends State<Assignments> {
   }
 
   Future uploadFile(String cUid) async {
-    final path = "courses/$cUid/${pickedFile!.name}";
+    final path = "assigUpload/$cUid/${pickedFile!.name}";
     final file = File(pickedFile!.path!);
     final ref = FirebaseStorage.instance.ref().child(path);
     uploadTask = ref.putFile(file);
@@ -60,11 +66,29 @@ class _AssignmentsState extends State<Assignments> {
     log("download link: $urlDownload");
   }
 
+  Future downloadFile(Reference ref) async {
+    /// Not visible for user final dir = await getApplicationDocumentsDirectory();
+    // final dir = await getApplicationSupportDirectory();
+    // final file = File('${dir.path}/${ref.name}');
+    // await ref.writeToFile(file);
+    final url = await ref.getDownloadURL();
+    final tempDir = await getTemporaryDirectory();
+    final path = '${tempDir.path}/${ref.name}';
+    await Dio().download(url, path);
+//
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Downloaded ${ref.name}')),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     futureFiles = FirebaseStorage.instance
         .ref("courses/${widget.courseUid.toString()}/")
+        .listAll();
+    future2Files = FirebaseStorage.instance
+        .ref("assigUpload/${widget.courseUid.toString()}/")
         .listAll();
     getCoins();
   }
@@ -130,7 +154,7 @@ class _AssignmentsState extends State<Assignments> {
                                       file.name,
                                     ),
                                     trailing: IconButton(
-                                        onPressed: () {},
+                                        onPressed: () => downloadFile(file),
                                         icon: const Icon(Icons.download)),
                                   );
                                 },
@@ -165,7 +189,7 @@ class _AssignmentsState extends State<Assignments> {
                       const SizedBox(height: 10),
                       Expanded(
                         child: FutureBuilder<ListResult>(
-                          future: futureFiles,
+                          future: future2Files,
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final files = snapshot.data!.items;

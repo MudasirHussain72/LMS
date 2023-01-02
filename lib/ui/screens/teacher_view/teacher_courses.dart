@@ -227,7 +227,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                                 controller: courseDiscController,
                                 hintText: "Course Discription",
                                 color: Colors.amber),
-                            Text(pickedFile!.name.toString()),
+                            // Text(pickedFile!.name.toString()),
                           ],
                         ),
                       ),
