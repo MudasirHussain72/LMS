@@ -20,29 +20,33 @@ class _StudentMsgScreenState extends State<StudentMsgScreen> {
 
     Map<String, dynamic> data = docSnapshot.data()!;
 
-    userSenderName = data['fullName'];
+    name = data['fullName'];
     //
     FirebaseFirestore.instance
         .collection('messages')
-        .add({'text': messValue, "userSenderName": userSenderName});
+        .add({'text': messValue, "userSenderName": name});
   }
 
-  static String? userSenderName;
-  static void showDisplayName() async {
-    // var collection = FirebaseFirestore.instance.collection('users');
-    // //userUid is the current auth user
-    // var docSnapshot =
-    //     await collection.doc(FirebaseAuth.instance.currentUser!.uid).get();
+  var name;
 
-    // Map<String, dynamic> data = docSnapshot.data()!;
-
-    // userSenderName = data['fullName'];
+  Future<void> getuserData() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((event) {
+      // you can access the values by
+      name = event['fullName'];
+    });
+    setState(() {});
   }
 
   @override
   void initState() {
+    // ignore: todo
+    // TODO: implement initState
     super.initState();
-    showDisplayName();
+    getuserData();
   }
 
   @override

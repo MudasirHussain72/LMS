@@ -81,7 +81,11 @@ class _TeacherCoursesState extends State<TeacherCourses> {
   PlatformFile? pickedFile;
   UploadTask? uploadTask;
   Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc'],
+    );
     setState(() {
       pickedFile = result!.files.first;
     });
@@ -225,7 +229,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                             // const Text("Course Discription"),
                             MyTextField(
                                 controller: courseDiscController,
-                                hintText: "Course Discription",
+                                hintText: "Course Description",
                                 color: Colors.amber),
                             // Text(pickedFile!.name.toString()),
                           ],

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project/ui/screens/student_view/coupons.dart';
+import 'package:project/ui/screens/student_view/tasks.dart';
 
 class MyRewards extends StatefulWidget {
   const MyRewards({super.key});
@@ -113,38 +114,47 @@ class _MyRewardsState extends State<MyRewards> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    height: 120,
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: const Color(0xff6D88E7)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Icon(
-                              Icons.align_vertical_bottom_rounded,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                              size: 20,
-                            )
-                          ],
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 30.0),
-                          child: Text("Tasks",
-                              style: TextStyle(color: Colors.white)),
-                        )
-                      ],
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TasksScreen()),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      height: 120,
+                      width: MediaQuery.of(context).size.width / 2.5,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: const Color(0xff6D88E7)),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Icon(
+                                Icons.align_vertical_bottom_rounded,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                              Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                                size: 20,
+                              )
+                            ],
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 30.0),
+                            child: Text("Tasks",
+                                style: TextStyle(color: Colors.white)),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(

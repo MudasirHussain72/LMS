@@ -11,7 +11,6 @@ import 'package:project/ui/auth/sign_up.dart';
 import 'package:project/ui/screens/student_view/home_screen.dart';
 import 'package:project/ui/screens/splash_screen.dart';
 import 'package:project/ui/screens/student_view/student_view.dart';
-import 'package:project/ui/screens/teacher_view/teacher_course_details.dart';
 import 'package:project/ui/screens/teacher_view/teacher_courses.dart';
 import 'package:project/ui/screens/teacher_view/teacher_profile.dart';
 import 'package:project/ui/screens/teacher_view/teacher_view.dart';
@@ -53,7 +52,7 @@ class MyApp extends StatelessWidget {
         "/TeacherView": (context) => const TeacherView(),
         "/TeacherProfile": (context) => const TeacherProfile(),
         "/TeacherCourses": (context) => const TeacherCourses(),
-        "/TeacherCourseDetails": (context) => const TeacherCourseDetails(),
+        // "/TeacherCourseDetails": (context) => const TeacherCourseDetails(),
         "/StudentProfile": (context) => const StudentProfile(),
         "/Reward": (context) => const Reward(),
         "/StudentMsgScreen": (context) => const StudentMsgScreen(),

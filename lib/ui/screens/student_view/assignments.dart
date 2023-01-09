@@ -44,21 +44,27 @@ class _AssignmentsState extends State<Assignments> {
   PlatformFile? pickedFile;
   UploadTask? uploadTask;
   Future selectFile() async {
-    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc'],
+    );
     setState(() {
       pickedFile = result!.files.first;
     });
     await uploadFile(widget.courseUid).then((value) {
       var uid = FirebaseAuth.instance.currentUser!.uid;
-      FirebaseFirestore.instance
-          .collection("users")
-          .doc(uid)
-          .set({"coins": userCoins + 200});
+      // FirebaseFirestore.instance
+      //     .collection("users")
+      //     .doc(uid)
+      //     . set({"coins": userCoins + 200});
     });
   }
 
   Future uploadFile(String cUid) async {
-    final path = "assigUpload/$cUid/${pickedFile!.name}";
+    final path = "courses/${widget.courseUid.toString()}" +
+        "/" +
+        "assigUpload/$cUid/${pickedFile!.name}";
     final file = File(pickedFile!.path!);
     final ref = FirebaseStorage.instance.ref().child(path);
     uploadTask = ref.putFile(file);
@@ -75,13 +81,9 @@ class _AssignmentsState extends State<Assignments> {
     final url = await ref.getDownloadURL();
     final tempDir = await getTemporaryDirectory();
     final path = '${tempDir.path}/${ref.name}';
-    // await Dio().download(url, path);
-//
     Map<Permission, PermissionStatus> statuses = await [
       Permission.storage,
-      //add more permission to request here.
     ].request();
-
     if (statuses[Permission.storage]!.isGranted) {
       var dir = await DownloadsPathProvider.downloadsDirectory;
       if (dir != null) {
@@ -122,7 +124,9 @@ class _AssignmentsState extends State<Assignments> {
         .ref("courses/${widget.courseUid.toString()}/")
         .listAll();
     future2Files = FirebaseStorage.instance
-        .ref("assigUpload/${widget.courseUid.toString()}/")
+        .ref("courses/${widget.courseUid.toString()}" +
+            "/" +
+            "assigUpload/${widget.courseUid.toString()}/")
         .listAll();
     getCoins();
   }
@@ -236,7 +240,10 @@ class _AssignmentsState extends State<Assignments> {
                                       file.name,
                                     ),
                                     trailing: IconButton(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await file.delete();
+                                          setState(() {});
+                                        },
                                         icon: const Icon(Icons.delete)),
                                   );
                                 },

@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project/ui/screens/student_view/assignments.dart';
+import 'package:project/ui/screens/student_view/notes.dart';
 import 'package:project/ui/screens/student_view/teacher_details.dart';
 import 'package:project/widgets/course_material.dart';
 import 'package:project/widgets/subject_type.dart';
@@ -97,7 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? Padding(
                         padding: const EdgeInsets.only(left: 75.0),
                         child: Container(
-                          width: 200,
+                          width: 220,
                           decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.only(
@@ -111,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Container(
                                 height: 90,
-                                width: 200,
+                                width: 220,
                                 decoration: BoxDecoration(
                                   color: Colors.blue[900],
                                   borderRadius: const BorderRadius.only(
@@ -163,17 +164,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              Text(
-                                                snapshot
-                                                    .data!
-                                                    .docs[selectedCourseIndex]
-                                                        ["courseUid"]
-                                                    .toString(),
-                                                style: const TextStyle(
-                                                  fontSize: 8,
-                                                  color: Colors.white,
-                                                ),
-                                              )
+                                              // Text(
+                                              //   snapshot
+                                              //       .data!
+                                              //       .docs[selectedCourseIndex]
+                                              //           ["courseUid"]
+                                              //       .toString(),
+                                              //   style: const TextStyle(
+                                              //     fontSize: 8,
+                                              //     color: Colors.white,
+                                              //   ),
+                                              // )
                                             ],
                                           ),
                                           const SizedBox(
@@ -242,7 +243,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                     courseMaterialTextName:
                                         "Clear Your Doubts"),
                               ),
-                              CourseMaterial(courseMaterialTextName: "Notes"),
+                              InkWell(
+                                  onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NotesScreen(
+                                                  courseUid: snapshot
+                                                      .data!
+                                                      .docs[selectedCourseIndex]
+                                                          ["courseUid"]
+                                                      .toString(),
+                                                )),
+                                      ),
+                                  child: CourseMaterial(
+                                      courseMaterialTextName: "Notes")),
                               CourseMaterial(courseMaterialTextName: "Quiz"),
                               InkWell(
                                 onTap: () => Navigator.push(

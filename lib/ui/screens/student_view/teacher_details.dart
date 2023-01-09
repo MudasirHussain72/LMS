@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
 
-
 import 'package:flutter/material.dart';
 
 class ShowTeacherDetails extends StatefulWidget {
@@ -76,7 +75,7 @@ class _ShowTeacherDetailsState extends State<ShowTeacherDetails> {
                               fontSize: 14, fontWeight: FontWeight.w500)),
                       Text(widget.teacherEmail.toString(),
                           style: const TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500))
+                              fontSize: 12, fontWeight: FontWeight.w500))
                     ],
                   ),
                   Row(
@@ -90,17 +89,17 @@ class _ShowTeacherDetailsState extends State<ShowTeacherDetails> {
                               fontSize: 14, fontWeight: FontWeight.w500))
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Teacher UID",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500)),
-                      Text(widget.teacherUid.toString(),
-                          style: const TextStyle(
-                              fontSize: 10, fontWeight: FontWeight.w500))
-                    ],
-                  )
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     const Text("Teacher UID",
+                  //         style: TextStyle(
+                  //             fontSize: 14, fontWeight: FontWeight.w500)),
+                  //     Text(widget.teacherUid.toString(),
+                  //         style: const TextStyle(
+                  //             fontSize: 10, fontWeight: FontWeight.w500))
+                  //   ],
+                  // )
                 ]),
           ),
         ),
