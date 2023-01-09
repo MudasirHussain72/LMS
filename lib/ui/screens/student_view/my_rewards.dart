@@ -202,44 +202,84 @@ class _MyRewardsState extends State<MyRewards> {
                 ],
               ),
               const SizedBox(height: 20),
-              Container(
-                height: 80,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.green[300]),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Icon(
-                              Icons.card_membership_outlined,
-                              size: 30,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "My Coupons",
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        ),
-                        const Icon(
-                          Icons.arrow_forward,
-                          color: Colors.white,
-                          size: 20,
-                        )
-                      ]),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyCoupon()),
+                  );
+                },
+                child: Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.green[300]),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Icon(
+                                Icons.card_membership_outlined,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "My Coupons",
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          ),
+                          const Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                            size: 20,
+                          )
+                        ]),
+                  ),
                 ),
               ),
             ],
           ),
         )
       ]),
+    );
+  }
+}
+
+class MyCoupon extends StatelessWidget {
+  const MyCoupon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text("My Coupons"),
+        titleTextStyle:
+            const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        centerTitle: true,
+        flexibleSpace: Container(
+            decoration: BoxDecoration(
+                color: Colors.blue[300],
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)))),
+      ),
+      body: Center(
+        child: Text("You have been used your all Coupons",
+            style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+                fontWeight: FontWeight.w500)),
+      ),
     );
   }
 }

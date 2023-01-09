@@ -34,6 +34,37 @@ class _TeacherProfileState extends State<TeacherProfile> {
     setState(() {});
   }
 
+  var _textFieldController = TextEditingController();
+  Future<void> _displayTextInputDialog(BuildContext context, String a) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Edit section'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "edit"),
+            ),
+            actions: [
+              ElevatedButton(
+                  onPressed: () async {
+                    var collection =
+                        FirebaseFirestore.instance.collection('users');
+                    collection
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .update({
+                          a: _textFieldController.text.trim().toString()
+                        }) // <-- Updated data
+                        .then((_) => Navigator.pop(context))
+                        .catchError((error) => print('Failed: $error'));
+                    setState(() {});
+                  },
+                  child: Text("edit"))
+            ],
+          );
+        });
+  }
+
   @override
   void initState() {
     // ignore: todo
@@ -80,11 +111,21 @@ class _TeacherProfileState extends State<TeacherProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Name"),
-                        Text(name.toString().toUpperCase()),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Name"),
+                            Text(name.toString().toUpperCase()),
+                          ],
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              _displayTextInputDialog(context, "fullName");
+                            },
+                            icon: Icon(Icons.edit))
                       ],
                     )),
                     SizedBox(
@@ -96,11 +137,21 @@ class _TeacherProfileState extends State<TeacherProfile> {
                       ],
                     )),
                     SizedBox(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Phone"),
-                        Text(phone.toString()),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Phone"),
+                            Text(phone.toString()),
+                          ],
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              _displayTextInputDialog(context, "phone");
+                            },
+                            icon: Icon(Icons.edit))
                       ],
                     )),
                     SizedBox(

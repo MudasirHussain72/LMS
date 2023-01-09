@@ -42,32 +42,64 @@ class _StudentProfileState extends State<StudentProfile> {
     getuserData();
   }
 
+  var _textFieldController = TextEditingController();
+  Future<void> _displayTextInputDialog(BuildContext context, String a) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Edit section'),
+            content: TextField(
+              controller: _textFieldController,
+              decoration: InputDecoration(hintText: "edit"),
+            ),
+            actions: [
+              ElevatedButton(
+                  onPressed: () async {
+                    var collection =
+                        FirebaseFirestore.instance.collection('users');
+                    collection
+                        .doc(FirebaseAuth.instance.currentUser!.uid)
+                        .update({
+                          a: _textFieldController.text.trim().toString()
+                        }) // <-- Updated data
+                        .then((_) => Navigator.pop(context))
+                        .catchError((error) => print('Failed: $error'));
+                    setState(() {});
+                  },
+                  child: Text("edit"))
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       body: Stack(children: [
         const ProfileUiTopRight220(),
         const ProfileUiTopleft220(),
         const ProfileUibottom220(),
-        const Padding(
-          padding: EdgeInsets.only(top: 90.0),
-          child: Align(
-            alignment: Alignment.topCenter,
-            child: CircleAvatar(
-              backgroundColor: Colors.black,
-              radius: 50,
-              child: Icon(
-                Icons.person,
-                color: Colors.yellow,
-                size: 40,
-              ),
-            ),
-          ),
-        ),
+        // const Padding(
+        //   padding: EdgeInsets.only(top: 90.0),
+        //   child: Align(
+        //     alignment: Alignment.topCenter,
+        //     child: CircleAvatar(
+        //       backgroundColor: Colors.black,
+        //       radius: 50,
+        //       child: Icon(
+        //         Icons.person,
+        //         color: Colors.yellow,
+        //         size: 40,
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 60.0),
+          padding: const EdgeInsets.only(bottom: 0.0),
           child: Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               height: MediaQuery.of(context).size.height / 2,
@@ -80,27 +112,52 @@ class _StudentProfileState extends State<StudentProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Name"),
-                        Text(name.toString().toUpperCase()),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Name"),
+                            Text(name.toString().toUpperCase()),
+                          ],
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              _displayTextInputDialog(context, "fullName");
+                            },
+                            icon: Icon(Icons.edit))
                       ],
                     )),
                     SizedBox(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Email"),
-                        Text(email.toString()),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Email"),
+                            Text(email.toString()),
+                          ],
+                        ),
                       ],
                     )),
                     SizedBox(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Phone"),
-                        Text(phone.toString()),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Phone"),
+                            Text(phone.toString()),
+                          ],
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              _displayTextInputDialog(context, "phone");
+                            },
+                            icon: Icon(Icons.edit))
                       ],
                     )),
                     SizedBox(

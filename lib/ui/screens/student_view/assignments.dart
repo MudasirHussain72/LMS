@@ -62,9 +62,10 @@ class _AssignmentsState extends State<Assignments> {
   }
 
   Future uploadFile(String cUid) async {
+    var uid = await FirebaseAuth.instance.currentUser!.uid;
     final path = "courses/${widget.courseUid.toString()}" +
         "/" +
-        "assigUpload/$cUid/${pickedFile!.name}";
+        "assigUpload/$uid/${pickedFile!.name}";
     final file = File(pickedFile!.path!);
     final ref = FirebaseStorage.instance.ref().child(path);
     uploadTask = ref.putFile(file);
@@ -120,13 +121,14 @@ class _AssignmentsState extends State<Assignments> {
   @override
   void initState() {
     super.initState();
+    var uid = FirebaseAuth.instance.currentUser!.uid;
     futureFiles = FirebaseStorage.instance
         .ref("courses/${widget.courseUid.toString()}/")
         .listAll();
     future2Files = FirebaseStorage.instance
         .ref("courses/${widget.courseUid.toString()}" +
             "/" +
-            "assigUpload/${widget.courseUid.toString()}/")
+            "assigUpload/${uid}/")
         .listAll();
     getCoins();
   }
