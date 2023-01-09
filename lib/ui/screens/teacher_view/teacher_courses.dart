@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:project/ui/screens/teacher_view/course_details.dart';
 import 'package:project/widgets/auth_widgets/my_textfiled.dart';
 import 'package:project/widgets/auth_widgets/rounded_button.dart';
 
@@ -222,7 +223,14 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () {
-                        // Navigator.pushNamed(context, "/TeacherCourseDetails");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CourseDetails(
+                                    courseDescrip: document['disc'],
+                                    courseUid: document['courseUid'],
+                                  )),
+                        );
                       },
                       child: Container(
                         height: 90,

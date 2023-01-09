@@ -52,9 +52,9 @@ class _TeacherViewState extends State<TeacherView> {
             padding: const EdgeInsets.all(16),
             gap: 8,
             tabs: const [
-              GButton(icon: Icons.message_rounded, text: "Teach"),
-              GButton(icon: Icons.home, text: "Home"),
-              GButton(icon: Icons.person_rounded, text: "Profile"),
+              GButton(icon: Icons.message_rounded),
+              GButton(icon: Icons.home),
+              GButton(icon: Icons.person_rounded),
             ],
             selectedIndex: _selectedIndex,
             onTabChange: (index) {

@@ -182,7 +182,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                           await Navigator.pushReplacementNamed(
                               context, "/LoginScreen");
                         },
-                        title: "LogOut",
+                        title: "Log Out",
                         color: const Color(0xff6D88E7))
                   ]),
             ),

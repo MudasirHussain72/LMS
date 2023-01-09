@@ -87,57 +87,61 @@ class _NotesScreenState extends State<NotesScreen> {
                     bottomRight: Radius.circular(20)))),
       ),
       body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          height: MediaQuery.of(context).size.height / 2.7,
-          width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Notes will be uploaded by teacher time to time",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 5),
-                const Text(
-                  overflow: TextOverflow.visible,
-                  "Everything is described in the attached file please download the file",
-                  style: TextStyle(fontSize: 10),
-                ),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: FutureBuilder<ListResult>(
-                    future: future2Files,
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final files = snapshot.data!.items;
-                        return ListView.builder(
-                          itemCount: files.length,
-                          itemBuilder: (context, index) {
-                            final file = files[index];
-                            return ListTile(
-                              title: Text(
-                                file.name,
-                              ),
-                              trailing: IconButton(
-                                  onPressed: () => downloadFile(file),
-                                  icon: const Icon(Icons.download)),
-                            );
-                          },
-                        );
-                      } else if (snapshot.hasError) {
-                        return const Text("error occured");
-                      } else {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                    },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Notes will be uploaded by teacher time to time",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                )
-              ]),
+                  const SizedBox(height: 5),
+                  const Text(
+                    overflow: TextOverflow.visible,
+                    "Everything is described in the attached file please download the file",
+                    style: TextStyle(fontSize: 10),
+                  ),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: FutureBuilder<ListResult>(
+                      future: future2Files,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final files = snapshot.data!.items;
+                          return ListView.builder(
+                            itemCount: files.length,
+                            itemBuilder: (context, index) {
+                              final file = files[index];
+                              return ListTile(
+                                title: Text(
+                                  file.name,
+                                ),
+                                trailing: IconButton(
+                                    onPressed: () => downloadFile(file),
+                                    icon: const Icon(Icons.download)),
+                              );
+                            },
+                          );
+                        } else if (snapshot.hasError) {
+                          return const Text("error occured");
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      },
+                    ),
+                  )
+                ]),
+          ),
         ),
       ),
     );

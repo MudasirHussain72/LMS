@@ -81,23 +81,33 @@ class _StudentProfileState extends State<StudentProfile> {
         const ProfileUiTopRight220(),
         const ProfileUiTopleft220(),
         const ProfileUibottom220(),
-        // const Padding(
-        //   padding: EdgeInsets.only(top: 90.0),
-        //   child: Align(
-        //     alignment: Alignment.topCenter,
-        //     child: CircleAvatar(
-        //       backgroundColor: Colors.black,
-        //       radius: 50,
-        //       child: Icon(
-        //         Icons.person,
-        //         color: Colors.yellow,
-        //         size: 40,
-        //       ),
-        //     ),
-        //   ),
-        // ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 0.0),
+          padding: EdgeInsets.only(top: 150.0),
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.orange.shade300, width: 2),
+                  boxShadow: const [
+                    BoxShadow(
+                      blurStyle: BlurStyle.outer,
+                      color: Colors.grey,
+                      blurRadius: 2.0,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(20),
+                  image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                          "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX25634104.jpg"))),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 170.0),
           child: Align(
             alignment: Alignment.center,
             child: Container(
@@ -178,7 +188,7 @@ class _StudentProfileState extends State<StudentProfile> {
                           await Navigator.pushReplacementNamed(
                               context, "/LoginScreen");
                         },
-                        title: "LogOut",
+                        title: "Log Out",
                         color: const Color(0xff6D88E7))
                   ]),
             ),

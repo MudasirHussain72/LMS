@@ -63,10 +63,25 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () {
                             Navigator.pushNamed(context, "/StudentProfile");
                           },
-                          child: const CircleAvatar(
-                            backgroundColor: Colors.amber,
-                            radius: 26,
-                            child: Icon(Icons.person),
+                          child: Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.orange.shade300, width: 2),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    blurStyle: BlurStyle.outer,
+                                    color: Colors.grey,
+                                    blurRadius: 2.0,
+                                    spreadRadius: 0.0,
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(15),
+                                image: const DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX25634104.jpg"))),
                           ),
                         ),
                         const SizedBox(height: 10),
@@ -180,10 +195,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                           const SizedBox(
                                             width: 8,
                                           ),
-                                          const CircleAvatar(
-                                            backgroundColor: Colors.yellow,
-                                            child: Icon(Icons.person),
-                                          )
+                                          Container(
+                                            height: 40,
+                                            width: 40,
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color:
+                                                        Colors.orange.shade300,
+                                                    width: 2),
+                                                boxShadow: const [
+                                                  BoxShadow(
+                                                    blurStyle: BlurStyle.outer,
+                                                    color: Colors.grey,
+                                                    blurRadius: 2.0,
+                                                    spreadRadius: 0.0,
+                                                  ),
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                image: const DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: NetworkImage(
+                                                        "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX25634104.jpg"))),
+                                          ),
                                         ],
                                       ),
                                     ],
