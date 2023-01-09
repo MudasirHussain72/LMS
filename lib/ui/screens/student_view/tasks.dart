@@ -26,9 +26,9 @@ class _TasksScreenState extends State<TasksScreen> {
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20)))),
       ),
-      body: Center(
+      body: const Center(
         child: Text("There is no task assigned",
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 20,
                 color: Colors.black,
                 fontWeight: FontWeight.w500)),

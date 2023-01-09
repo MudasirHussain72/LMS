@@ -48,10 +48,10 @@ class _StudentProfileState extends State<StudentProfile> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Edit section'),
+            title: const Text('Edit section'),
             content: TextField(
               controller: _textFieldController,
-              decoration: InputDecoration(hintText: "edit"),
+              decoration: const InputDecoration(hintText: "edit"),
             ),
             actions: [
               ElevatedButton(
@@ -67,7 +67,7 @@ class _StudentProfileState extends State<StudentProfile> {
                         .catchError((error) => print('Failed: $error'));
                     setState(() {});
                   },
-                  child: Text("edit"))
+                  child: const Text("edit"))
             ],
           );
         });
@@ -126,7 +126,7 @@ class _StudentProfileState extends State<StudentProfile> {
                             onPressed: () {
                               _displayTextInputDialog(context, "fullName");
                             },
-                            icon: Icon(Icons.edit))
+                            icon: const Icon(Icons.edit))
                       ],
                     )),
                     SizedBox(
@@ -157,7 +157,7 @@ class _StudentProfileState extends State<StudentProfile> {
                             onPressed: () {
                               _displayTextInputDialog(context, "phone");
                             },
-                            icon: Icon(Icons.edit))
+                            icon: const Icon(Icons.edit))
                       ],
                     )),
                     SizedBox(

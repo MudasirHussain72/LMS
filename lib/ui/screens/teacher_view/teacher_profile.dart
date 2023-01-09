@@ -40,10 +40,10 @@ class _TeacherProfileState extends State<TeacherProfile> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Edit section'),
+            title: const Text('Edit section'),
             content: TextField(
               controller: _textFieldController,
-              decoration: InputDecoration(hintText: "edit"),
+              decoration: const InputDecoration(hintText: "edit"),
             ),
             actions: [
               ElevatedButton(
@@ -59,7 +59,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                         .catchError((error) => print('Failed: $error'));
                     setState(() {});
                   },
-                  child: Text("edit"))
+                  child: const Text("edit"))
             ],
           );
         });
@@ -80,18 +80,28 @@ class _TeacherProfileState extends State<TeacherProfile> {
         const ProfileUiTopRight220(),
         const ProfileUiTopleft220(),
         const ProfileUibottom220(),
-        const Padding(
-          padding: EdgeInsets.only(top: 90.0),
+        Padding(
+          padding: const EdgeInsets.only(top: 90.0),
           child: Align(
             alignment: Alignment.topCenter,
-            child: CircleAvatar(
-              backgroundColor: Colors.black,
-              radius: 50,
-              child: Icon(
-                Icons.person,
-                color: Colors.yellow,
-                size: 40,
-              ),
+            child: Container(
+              height: 90,
+              width: 90,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.orange.shade300, width: 2),
+                  boxShadow: const [
+                    BoxShadow(
+                      blurStyle: BlurStyle.outer,
+                      color: Colors.grey,
+                      blurRadius: 2.0,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(15),
+                  image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                          "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX25634104.jpg"))),
             ),
           ),
         ),
@@ -125,7 +135,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                             onPressed: () {
                               _displayTextInputDialog(context, "fullName");
                             },
-                            icon: Icon(Icons.edit))
+                            icon: const Icon(Icons.edit))
                       ],
                     )),
                     SizedBox(
@@ -151,7 +161,7 @@ class _TeacherProfileState extends State<TeacherProfile> {
                             onPressed: () {
                               _displayTextInputDialog(context, "phone");
                             },
-                            icon: Icon(Icons.edit))
+                            icon: const Icon(Icons.edit))
                       ],
                     )),
                     SizedBox(

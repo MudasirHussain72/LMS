@@ -23,6 +23,8 @@ class _TeacherCoursesState extends State<TeacherCourses> {
   var email;
   var phone;
   static String? uid;
+  var docLength;
+
   static void showDisplayName() async {
     var collection = FirebaseFirestore.instance.collection('users');
     var coursesCollection = FirebaseFirestore.instance.collection('courses');
@@ -32,7 +34,6 @@ class _TeacherCoursesState extends State<TeacherCourses> {
     Map<String, dynamic> data = docSnapshot.data()!;
     profName = data['fullName'];
     profPhone = data['phone'];
-
     var docSnapshot2 = await collection.doc().get();
     Map<String, dynamic> data2 = docSnapshot2.data()!;
     uid = data2['fullName'];
@@ -54,7 +55,6 @@ class _TeacherCoursesState extends State<TeacherCourses> {
 
   var courseNameController = TextEditingController();
   var courseDiscController = TextEditingController();
-
   void createCourse() {
     var newDocRef = FirebaseFirestore.instance.collection('courses').doc();
     newDocRef.set({
@@ -91,12 +91,22 @@ class _TeacherCoursesState extends State<TeacherCourses> {
     });
   }
 
+  Future showCount() async {
+    final int documents = await FirebaseFirestore.instance
+        .collection('courses')
+        .snapshots()
+        .length;
+    setState(() {
+      docLength = documents;
+    });
+  }
+
   @override
   void initState() {
-    // ignore: todo
-    // TODO: implement initState
     super.initState();
+
     showDisplayName();
+    showCount();
   }
 
   @override
@@ -104,7 +114,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
     return Scaffold(
       body: Stack(children: [
         Container(
-          height: 150,
+          height: 200,
           width: double.infinity,
           decoration: const BoxDecoration(
             color: Color(0xff6D88E7),
@@ -112,19 +122,78 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                 bottomLeft: Radius.circular(25),
                 bottomRight: Radius.circular(25)),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Center(
-              child: Text(
-                "Prof. ${"$profName".toUpperCase()}",
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          child: Stack(alignment: Alignment.center, children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                height: 90,
+                // width: 140,
+                decoration: const BoxDecoration(
+                  color: Color(0xffFFBB00),
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                ),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Courses",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        "I Offered",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ]),
               ),
             ),
-          ),
+            Positioned(
+              bottom: 80,
+              left: 20,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 70,
+                    width: 70,
+                    decoration: BoxDecoration(
+                        border:
+                            Border.all(color: Colors.orange.shade300, width: 2),
+                        boxShadow: const [
+                          BoxShadow(
+                            blurStyle: BlurStyle.outer,
+                            color: Colors.grey,
+                            blurRadius: 2.0,
+                            spreadRadius: 0.0,
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(15),
+                        image: const DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                "https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX25634104.jpg"))),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 10),
+                    child: Text(
+                      "Prof. ${"$profName".toUpperCase()}",
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ]),
         ),
         const Padding(
-          padding: EdgeInsets.only(top: 180, left: 25),
+          padding: EdgeInsets.only(top: 230, left: 25),
           child: Text(
             "My Courses",
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
@@ -132,12 +201,13 @@ class _TeacherCoursesState extends State<TeacherCourses> {
         ),
         Padding(
           padding:
-              const EdgeInsets.only(top: 210, bottom: 50, left: 15, right: 15),
+              const EdgeInsets.only(top: 260, bottom: 50, left: 15, right: 15),
           child: StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('courses')
-                // .orderBy("text", descending: false)
-                .snapshots(),
+            stream:
+                FirebaseFirestore.instance.collection('courses').snapshots(),
+            // setState(() {
+            //     courseLength = snapshot.data!.docs.length;
+            //   });
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (!snapshot.hasData) {
@@ -158,14 +228,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                         height: 90,
                         // width: 140,
                         decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topRight,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              Colors.yellow,
-                              Colors.orange,
-                            ],
-                          ),
+                          color: Color(0xff7BB2FA),
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                         child: Center(
@@ -173,7 +236,14 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               const SizedBox(width: 20),
-                              const CircleAvatar(backgroundColor: Colors.black),
+                              const CircleAvatar(
+                                backgroundColor: Color(0xffA1C7F9),
+                                radius: 22,
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xff4494FE),
+                                  radius: 18,
+                                ),
+                              ),
                               const SizedBox(width: 20),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,6 +252,7 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                                   Text(
                                     document['title'],
                                     style: const TextStyle(
+                                        color: Colors.white,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600),
                                   ),
@@ -189,8 +260,9 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                                   Text(
                                     document['disc'],
                                     style: const TextStyle(
+                                        color: Colors.white,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.w300),
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ],
                               ),

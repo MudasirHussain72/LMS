@@ -18,12 +18,11 @@ class _TeacherViewState extends State<TeacherView> {
     await prefs.setBool('isTeacher', true);
   }
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    TeacherCourses(),
     ClearYourDoubtsScreen(),
-    // AddUserDetailsScreen(),
+    TeacherCourses(),
     TeacherProfile()
   ];
   @override
@@ -53,8 +52,8 @@ class _TeacherViewState extends State<TeacherView> {
             padding: const EdgeInsets.all(16),
             gap: 8,
             tabs: const [
-              GButton(icon: Icons.home, text: "Home"),
               GButton(icon: Icons.message_rounded, text: "Teach"),
+              GButton(icon: Icons.home, text: "Home"),
               GButton(icon: Icons.person_rounded, text: "Profile"),
             ],
             selectedIndex: _selectedIndex,
