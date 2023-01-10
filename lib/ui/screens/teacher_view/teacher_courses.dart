@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:project/ui/screens/teacher_view/course_details.dart';
@@ -144,13 +145,33 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                             fontSize: 16,
                             fontWeight: FontWeight.w600),
                       ),
-                      Text(
-                        "I Offered",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600),
-                      ),
+                      StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('courses')
+                            .where('teacherUid',
+                                isEqualTo:
+                                    FirebaseAuth.instance.currentUser!.uid)
+                            .snapshots(),
+                        builder: (context, snapshot) {
+                          return !snapshot.hasData
+                              ? Text('PLease Wait')
+                              : Text(
+                                  snapshot.data!.docs.length.toString(),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600),
+                                );
+                        },
+
+                        // Text(
+                        //   "I Offered",
+                        //   style: TextStyle(
+                        //       color: Colors.white,
+                        //       fontSize: 16,
+                        //       fontWeight: FontWeight.w600),
+                        // ),
+                      )
                     ]),
               ),
             ),
@@ -204,13 +225,17 @@ class _TeacherCoursesState extends State<TeacherCourses> {
           padding:
               const EdgeInsets.only(top: 260, bottom: 50, left: 15, right: 15),
           child: StreamBuilder(
-            stream:
-                FirebaseFirestore.instance.collection('courses').snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection('courses')
+                .where('teacherUid',
+                    isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                .snapshots(),
             // setState(() {
             //     courseLength = snapshot.data!.docs.length;
             //   });
             builder:
                 (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              // var u = FirebaseAuth.instance.currentUser!.uid;
               if (!snapshot.hasData) {
                 return const Center(
                   child: CircularProgressIndicator(),

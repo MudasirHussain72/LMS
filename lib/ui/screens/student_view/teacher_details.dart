@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:project/widgets/auth_widgets/rounded_button.dart';
 
 class ShowTeacherDetails extends StatefulWidget {
   var teacherName;
@@ -105,17 +106,13 @@ class _ShowTeacherDetailsState extends State<ShowTeacherDetails> {
                               fontSize: 14, fontWeight: FontWeight.w500))
                     ],
                   ),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //   children: [
-                  //     const Text("Teacher UID",
-                  //         style: TextStyle(
-                  //             fontSize: 14, fontWeight: FontWeight.w500)),
-                  //     Text(widget.teacherUid.toString(),
-                  //         style: const TextStyle(
-                  //             fontSize: 10, fontWeight: FontWeight.w500))
-                  //   ],
-                  // )
+                  RoundedButton(
+                      ontap: () async {
+                        await Navigator.pushReplacementNamed(
+                            context, "/StudentMsgScreen");
+                      },
+                      title: "Clear your doubts",
+                      color: const Color(0xff6D88E7))
                 ]),
           ),
         ),

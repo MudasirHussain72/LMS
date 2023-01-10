@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/ui/screens/teacher_view/assignment.dart';
+import 'package:project/ui/screens/teacher_view/notes_upload.dart';
 import 'package:project/ui/screens/teacher_view/teacher_messages.dart';
 import 'package:project/widgets/course_material.dart';
 
@@ -53,6 +55,16 @@ class _CourseDetailsState extends State<CourseDetails> {
                       ),
                       SizedBox(height: 16),
                       InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AssignmentUploadScreen(
+                                      courseDescrip: widget.courseDescrip,
+                                      courseUid: widget.courseUid,
+                                    )),
+                          );
+                        },
                         child: CourseMaterial(
                             courseMaterialTextName: "Assignments"),
                       ),
@@ -71,6 +83,16 @@ class _CourseDetailsState extends State<CourseDetails> {
                       ),
                       SizedBox(height: 16),
                       InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NotesUploadScreen(
+                                      courseDescrip: widget.courseDescrip,
+                                      courseUid: widget.courseUid,
+                                    )),
+                          );
+                        },
                         child: CourseMaterial(courseMaterialTextName: "Notes"),
                       ),
                     ]),
