@@ -22,9 +22,11 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
 
     userSenderName = data['fullName'];
     //
-    FirebaseFirestore.instance
-        .collection('messages')
-        .add({'text': messValue, "userSenderName": userSenderName});
+    FirebaseFirestore.instance.collection('messages').add({
+      'text': messValue,
+      "userSenderName": userSenderName,
+      "timestamp": Timestamp.now()
+    });
   }
 
   static String? userSenderName;
@@ -80,7 +82,7 @@ class _ClearYourDoubtsScreenState extends State<ClearYourDoubtsScreen> {
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('messages')
-                  .orderBy("text", descending: false)
+                  .orderBy("timestamp", descending: false)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {

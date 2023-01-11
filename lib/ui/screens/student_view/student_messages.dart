@@ -22,9 +22,11 @@ class _StudentMsgScreenState extends State<StudentMsgScreen> {
 
     name = data['fullName'];
     //
-    FirebaseFirestore.instance
-        .collection('messages')
-        .add({'text': messValue, "userSenderName": name});
+    FirebaseFirestore.instance.collection('messages').add({
+      'text': messValue,
+      "userSenderName": name,
+      "timestamp": Timestamp.now()
+    });
   }
 
   var name;
@@ -133,7 +135,7 @@ class _StudentMsgScreenState extends State<StudentMsgScreen> {
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('messages')
-                  .orderBy("text", descending: false)
+                  .orderBy("timestamp", descending: false)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {

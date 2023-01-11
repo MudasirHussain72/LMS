@@ -208,11 +208,11 @@ class _AssignmentUploadScreenState extends State<AssignmentUploadScreen> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
-                      overflow: TextOverflow.visible,
-                      "Everything is described in the attached file please download the file",
-                      style: TextStyle(fontSize: 10),
-                    ),
+                    // const Text(
+                    //   overflow: TextOverflow.visible,
+                    //   "Everything is described in the attached file please download the file",
+                    //   style: TextStyle(fontSize: 10),
+                    // ),
                     const SizedBox(height: 10),
                     Expanded(
                       child: FutureBuilder<ListResult>(
