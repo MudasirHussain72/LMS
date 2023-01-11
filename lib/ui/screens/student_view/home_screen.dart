@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project/ui/screens/student_view/assignments.dart';
 import 'package:project/ui/screens/student_view/notes.dart';
+import 'package:project/ui/screens/student_view/quiz.dart';
 import 'package:project/ui/screens/student_view/teacher_details.dart';
 import 'package:project/widgets/course_material.dart';
 import 'package:project/widgets/subject_type.dart';
@@ -291,7 +292,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                   child: CourseMaterial(
                                       courseMaterialTextName: "Notes")),
-                              CourseMaterial(courseMaterialTextName: "Quiz"),
+                              InkWell(
+                                  onTap: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => QuizScreen(
+                                                  courseUid: snapshot
+                                                      .data!
+                                                      .docs[selectedCourseIndex]
+                                                          ["courseUid"]
+                                                      .toString(),
+                                                )),
+                                      ),
+                                  child: CourseMaterial(
+                                      courseMaterialTextName: "Quiz")),
                               InkWell(
                                 onTap: () => Navigator.push(
                                   context,

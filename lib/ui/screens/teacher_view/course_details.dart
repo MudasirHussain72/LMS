@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:project/ui/screens/teacher_view/assignment.dart';
 import 'package:project/ui/screens/teacher_view/notes_upload.dart';
+import 'package:project/ui/screens/teacher_view/quiz_upload.dart';
 import 'package:project/ui/screens/teacher_view/teacher_messages.dart';
 import 'package:project/widgets/course_material.dart';
 
@@ -25,6 +28,7 @@ class _CourseDetailsState extends State<CourseDetails> {
           alignment: Alignment.topLeft,
           child: Container(
               width: size.width / 1.3,
+              height: size.height,
               color: Colors.white,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 170, horizontal: 10),
@@ -94,6 +98,20 @@ class _CourseDetailsState extends State<CourseDetails> {
                           );
                         },
                         child: CourseMaterial(courseMaterialTextName: "Notes"),
+                      ),
+                      SizedBox(height: 16),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => QuizUploadScreen(
+                                      courseDescrip: widget.courseDescrip,
+                                      courseUid: widget.courseUid,
+                                    )),
+                          );
+                        },
+                        child: CourseMaterial(courseMaterialTextName: "Quiz"),
                       ),
                     ]),
               )),

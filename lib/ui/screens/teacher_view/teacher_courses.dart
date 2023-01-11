@@ -341,9 +341,9 @@ class _TeacherCoursesState extends State<TeacherCourses> {
                         ),
                       ),
                       actions: [
-                        ElevatedButton(
-                            onPressed: selectFile,
-                            child: const Text("Pick pdf")),
+                        // ElevatedButton(
+                        //     onPressed: selectFile,
+                        //     child: const Text("Pick pdf")),
                         ElevatedButton(
                             onPressed: () {
                               createCourse();
