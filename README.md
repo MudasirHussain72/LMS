@@ -1,16 +1,12 @@
-# project
+# LMS built with flutter and firebase
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot_2023-01-21-21-23-36-29_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213876954-04551990-da3e-4466-9120-ef40c03d0c77.jpg)
+![Screenshot_2023-01-21-21-23-56-89_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213876963-0e7e2397-1a12-4ae6-aa29-ffffe9b030f4.jpg)
+![Screenshot_2023-01-21-21-24-02-38_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213876970-effab2ba-ba3f-4972-a6e4-9aa9e71eb00a.jpg)
+![Screenshot_2023-01-21-21-28-55-18_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213877004-3c232869-135b-4f25-a976-853aebc2ab7b.jpg)
+![Screenshot_2023-01-21-21-29-47-88_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213877039-b5a6e514-3554-4718-9975-baa7202b4b8b.jpg)
+![Screenshot_2023-01-21-21-25-18-18_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213877125-ed0d4f40-190d-4be5-acc7-53eedbd4703e.jpg)
+![Screenshot_2023-01-21-21-28-23-36_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213877148-56c13e04-cc11-4194-a6d9-69b909c57bc5.jpg)
+![Screenshot_2023-01-21-21-28-19-75_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213877168-ea321f9b-b090-42d1-9078-b7d1870a3e37.jpg)
+![Screenshot_2023-01-21-21-28-28-06_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213877213-af951a1e-272c-4419-8890-e8e97d910f31.jpg)
+![Screenshot_2023-01-21-21-28-32-39_827512f1be964017a925084ba2329277](https://user-images.githubusercontent.com/81384345/213877223-e92d735c-43b4-40b6-9c66-2701f8d61254.jpg)
